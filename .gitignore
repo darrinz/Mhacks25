@@ -1,0 +1,131 @@
+# -------------------------
+# Python
+# -------------------------
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+build/
+dist/
+eggs/
+*.egg-info/
+pip-wheel-metadata/
+wheels/
+
+# Virtual environments
+venv/
+ENV/
+env/
+.env/
+.venv/
+venv.bak/
+
+# Pytest / coverage
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Type/checker caches
+.mypy_cache/
+.pyright/
+.pyre/
+
+# Installer logs
+pip-log.txt
+
+# Unit test / report files
+nosetests.xml
+test-reports/
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+media
+
+# Flask stuff
+instance/
+.webassets-cache
+
+# Sphinx build
+docs/_build/
+
+# PyBuilder
+.pybuilder/
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# -------------------------
+# JavaScript / Node
+# -------------------------
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+out/
+
+# Next.js/.nuxt/.parcel
+.next/
+.nuxt/
+.parcel-cache/
+
+# Logs
+/npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage
+coverage/
+coverage-final.json
+
+# Dependency directories
+.pnp/
+.pnp.js
+
+# Misc caches
+.cache/
+.parcel-cache/
+.turbo/
+
+# Environment files (local secrets)
+.env
+.env.local
+.env.*
+!.env.example
+
+# Editor directories and files
+.vscode/
+.idea/
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# -------------------------
+# Optional: lockfiles (usually committed) - left commented
+# -------------------------
+# package-lock.json
+# yarn.lock
