@@ -46,11 +46,19 @@ function onStartProcessForAgenda(title: string) {
       console.log("Meetings:", meetings);
       // Example: Fetch details for the first meeting
       if (meetings.length > 0) {
-        fetch(`/api/meetings/${meetings[0].id}`)
+        fetch(`http://127.0.0.1:8003/api/filter/`)
           .then((res) => res.json())
           .then((meetingDetails) => {
             // Do something with meeting details
             console.log("Meeting details:", meetingDetails);
+            fetch("http://127.0.0.1:8004/api/create_agenda/")
+              .then((res) => res.json())
+              .then((agendaResult) => {
+                console.log("Agenda created:", agendaResult);
+              })
+              .catch((err) => {
+                console.error("Error creating agenda:", err);
+              });
           })
           .catch((err) => {
             // Handle error for details fetch
