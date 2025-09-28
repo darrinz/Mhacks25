@@ -1,12 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { createClient } from '@/utils/supabase/server';
 
 export async function GET(req: NextRequest) {
-    // console.log("Hi");
+    console.log("in function");
     const { searchParams } = new URL(req.url);
     const title = searchParams.get('title');
     // console.log(title);
@@ -14,6 +10,8 @@ export async function GET(req: NextRequest) {
     if (!title) {
         return NextResponse.json({ error: 'title is required' }, { status: 400 });
     }
+
+    const supabase = await createClient();
 
     // First, get the meeting ID from the title
     const { data: meetingData, error: meetingError } = await supabase
