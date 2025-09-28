@@ -1,0 +1,24 @@
+{
+  "user": "John Doe",
+  "meeting": "Q4 Planning Session",
+  "roles": [
+    "Project Manager",
+    "Frontend Developer",
+    "Backend Developer",
+    "QA Engineer"
+  ],
+  "questions": [
+    {
+      "question": "What are the main goals for Q4?",
+      "response": "Focus on user experience improvements and performance optimization"
+    },
+    {
+      "question": "What blockers do you anticipate?",
+      "response": "Resource allocation and timeline constraints for the new feature set"
+    },
+    {
+      "question": "How will you measure success?",
+      "response": "User engagement metrics and application performance benchmarks"
+    }
+  ]
+}
