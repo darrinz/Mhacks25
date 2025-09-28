@@ -89,7 +89,7 @@ export default function MeetingView({ meeting, meetingId }: MeetingViewProps) {
 			console.log(JSON.stringify(payload));
 
 			// Send POST request to standardizer endpoint
-			const response = await fetch("https://localhost:3000/api/standardize", {
+			const response = await fetch("http://127.0.0.1:8002/api/standardize/", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
