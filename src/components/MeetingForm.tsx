@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useRouter } from "next/navigation";
 import {
   Box,
   Button,
@@ -29,6 +30,7 @@ type MeetingPayload = {
 };
 
 export default function MeetingForm() {
+  const router = useRouter();
   const [title, setTitle] = React.useState("");
   const [datetime, setDatetime] = React.useState("");
   const [description, setDescription] = React.useState("");
@@ -80,8 +82,26 @@ export default function MeetingForm() {
       attendees,
     };
     setLoading(true);
-    // TODO: send `payload` to your API for aggregation/agenda generation
-    setTimeout(() => setLoading(false), 500);
+    fetch("/api/meetings/create", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    })
+      .then(async (res) => {
+        setLoading(false);
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err?.error || "Failed to create meeting");
+        }
+        const data = await res.json();
+        // Navigate to meetings list or the newly created meeting page
+        router.push("/meetings");
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.error(err);
+        alert(err.message || "Error creating meeting");
+      });
   }
 
   function handleReset() {

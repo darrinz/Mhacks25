@@ -65,10 +65,11 @@ export default async function MeetingDetailPage({ params }: { params: { id: stri
 	// Transform database response to Meeting object format
 	const meeting = {
 		name: meetingData.title,
+		// normalize DB `date` (timestamptz) to `datetime` for UI components
 		datetime: meetingData.date,
 		description: meetingData.description || "",
 		hasPendingTasks: meetingState?.hasPendingTasks || false,
-		questions: Array.isArray(meetingData.pretasks) 
+		questions: Array.isArray(meetingData.pretasks)
 			? meetingData.pretasks.map((task: string, index: number) => ({
 				id: `task_${index}`,
 				question: task

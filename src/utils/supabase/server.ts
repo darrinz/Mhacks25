@@ -1,8 +1,12 @@
 // utils/supabase/server.ts
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
-import { cookies } from "next/headers";
 
 export async function createClient() {
+  // Lazy-import `next/headers` here so this module doesn't statically reference
+  // server-only APIs at module load time. That prevents bundlers from treating
+  // this file as requiring server-only environment when it's imported by other
+  // files during build analysis.
+  const { cookies } = await import("next/headers");
   const cookieStore = await cookies();
 
   return createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
@@ -13,7 +17,7 @@ export async function createClient() {
       set(name: string, value: string, options: CookieOptions) {
         try {
           // Handle cookie setting here.
-          cookieStore.set(name, value, options); // Ensure cookieStore supports .set()
+          cookieStore.set(name, value, options);
         } catch (error) {
           console.error("Error setting cookie:", error);
         }
@@ -21,7 +25,7 @@ export async function createClient() {
       remove(name: string, options: CookieOptions) {
         try {
           // Handle cookie removal here.
-          cookieStore.set(name, "", { ...options, maxAge: 0 }); // Ensure cookieStore supports .set()
+          cookieStore.set(name, "", { ...options, maxAge: 0 });
         } catch (error) {
           console.error("Error removing cookie:", error);
         }

@@ -22,11 +22,10 @@ import ScheduleRoundedIcon from "@mui/icons-material/ScheduleRounded";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 
 type MeetingProps = {
-  name: string;
+  title: string;
   datetime: string | Date;         // ISO string or Date
   description?: string;
-  hasPendingTasks?: boolean;       // true => show "Pending tasks"
-  isEdit?: boolean;                // true => show Edit button
+  isOwner?: boolean;                // true => show Edit button
   isReady?: boolean;               // true => show Ready button
   onView?: () => void;
   onOpenTasks?: () => void;
@@ -36,11 +35,10 @@ type MeetingProps = {
 };
 
 export default function Meeting({
-  name,
+  title,
   datetime,
   description = "",
-  hasPendingTasks = false,
-  isEdit = false,
+  isOwner = false,
   isReady = false,
   onView,
   onOpenTasks,
@@ -86,12 +84,12 @@ export default function Meeting({
                 <Typography
                   variant="h6"
                   noWrap
-                  title={name}
+                  title={title}
                   sx={{ fontWeight: 600, color: 'text.primary' }}
                 >
-                  {name}
+                  {title}
                 </Typography>
-                {hasPendingTasks && (
+                {!isReady && (
                   <Chip
                     size="small"
                     color="error"
@@ -135,7 +133,7 @@ export default function Meeting({
               sx={{ pl: 1, ml: 'auto', minWidth: 0 }}
             >
               {/* Action buttons */}
-              {hasPendingTasks && (
+              {!isReady && (
                 <Button
                   size="small"
                   variant="contained"
@@ -150,7 +148,7 @@ export default function Meeting({
                 </Button>
               )}
 
-              {isEdit && (
+              {isOwner && (
                 <Button
                   size="small"
                   variant="contained"
