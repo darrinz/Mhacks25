@@ -66,7 +66,7 @@ export default function Page() {
               <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
                 <Button
                   component={Link}
-                  href="/signup"
+                  href="/meetings"
                   variant="contained"
                   size="large"
                   endIcon={<KeyboardArrowRightRoundedIcon />}
@@ -75,7 +75,7 @@ export default function Page() {
                 </Button>
                 <Button
                   component={Link}
-                  href="/demo"
+                  href="/meetings"
                   variant="text"
                   size="large"
                 >
@@ -239,15 +239,6 @@ export default function Page() {
               text="Everyone gets outcomes, owners, and due dates. No ‘what did we decide?’ messages after."
             />
           </Box>
-
-          <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ mt: 4 }}>
-            <Button component={Link} href="/signup" variant="contained" size="large">
-              Start free
-            </Button>
-            <Button component={Link} href="/contact" variant="outlined" size="large">
-              Talk to sales
-            </Button>
-          </Stack>
         </Container>
       </Box>
 
