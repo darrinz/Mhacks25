@@ -1,0 +1,182 @@
+[
+  {
+    "user": "Carter Hayes",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "We need to give a final sign-off on the technical integration plan for the OmniCorp partnership. The deal is worth $20 million a year, and this is the last step before we sign the contracts."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "I have the final version of the partnership agreement from our legal team. It's ready to be signed as soon as we get the green light from the product and engineering teams in this meeting."
+      },
+      {
+        "question": "What are the most significant blockers, risks, or challenges you're facing right now? Where do you need help or a decision from the team?",
+        "response": "The only blocker is internal hesitation from our engineering team. The risk is that if we delay, OmniCorp might walk away from the deal and go to our competitor. I need everyone to understand the strategic importance of this partnership."
+      }
+    ]
+  },
+  {
+    "user": "Nadia Al-Sayed",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I need to raise serious concerns about the technical feasibility of integrating with OmniCorp's legacy API."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "My team has been reviewing OmniCorp's API documentation. It's a 15-year-old SOAP API with no documentation for key endpoints and an average response time of over 2 seconds. It uses XML for everything and requires us to build a custom authentication library from scratch. For those who are technical, it uses a WS-Security standard that has been deprecated for years."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The blocker is the technical quality of their API. The risk is that we couple our modern, fast, reliable platform to their slow, brittle, and insecure one. This integration will be a permanent source of bugs and performance issues. I cannot in good conscience sign off on this integration plan."
+      }
+    ]
+  },
+  {
+    "user": "Jian Li",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I want to discuss the joint product roadmap proposed by OmniCorp."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "I've mapped their proposed features to our existing Q4/Q1 roadmap. Their requests would require us to delay our planned 'AI Assistant' feature by at least two quarters to focus on building integration-specific features for them. By the way, the monthly user analytics report is ready and will be sent out tomorrow."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The risk is that this partnership completely derails our own product vision. We would essentially become an outsourced R&D team for OmniCorp for the next six months. We need to decide if the revenue is worth sacrificing our own innovation."
+      }
+    ]
+  },
+  {
+    "user": "Owen Williams",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "The data privacy and security implications of the integration."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "We conducted a security review of their API. It lacks support for modern encryption standards and their data residency policies are not compliant with GDPR. Sharing our customer data with them would be a significant legal and security risk."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "I am blocking this from a security perspective until OmniCorp can demonstrate GDPR compliance and upgrade their API to support TLS 1.3. We cannot expose our users' data to a non-compliant partner."
+      }
+    ]
+  },
+  {
+    "user": "Fatima Rossi",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I need to know what we are telling customers about this partnership."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "We have drafted a joint press release with OmniCorp's marketing team. It talks about 'seamless integration' and 'best-of-breed solutions'. It's very positive and makes a lot of promises. My new hire, Tim, is also starting next week."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The risk is that we announce a 'seamless integration' that the engineering team says will be a buggy nightmare. If we can't deliver on the promise, the damage to our brand could be severe. I am blocked on sending this press release until we have internal alignment."
+      }
+    ]
+  },
+  {
+    "user": "Yuki Tanaka",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "The legal terms of the service level agreement (SLA) in the partnership contract."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "I have reviewed the contract. OmniCorp is only willing to commit to a 99.0% uptime SLA for their API, which is equivalent to over 7 hours of downtime per month. Our own product has a 99.95% uptime SLA. We would be in breach of our own SLA with customers if their API goes down."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "This SLA mismatch is a major legal and financial risk. I cannot advise signing the contract under these terms. We need to either get OmniCorp to increase their SLA or add a carve-out in our own customer contracts, which would be very unpopular."
+      }
+    ]
+  },
+  {
+    "user": "Ben Miller",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I'd like to understand the support model for this integration."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "My team is already stretched thin supporting our own product. The new hire orientation is also next week, so please remember to sign up for that."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "If this integration is as buggy as the engineers predict, my support team will be overwhelmed with tickets. We do not have the headcount to support another company's product failures. We would need to budget for at least 3 new support engineers."
+      }
+    ]
+  },
+  {
+    "user": "Aisha Khan",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "Just want to sync on the UX of the integrated features."
+      },
+      {
+        "question": "On any ofのthe key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "We have designed a user flow that tries to hide the slowness of OmniCorp's API by using loading skeletons and optimistic updates, but it can only do so much. A 2-second delay is going to feel broken no matter how nice the loading spinner is."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The risk is a poor user experience that reflects badly on our brand. We are known for a fast, modern interface. This integration threatens that reputation."
+      }
+    ]
+  },
+  {
+    "user": "David Garcia",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I'd like to propose an alternative to the full integration."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "Instead of a deep, server-to-server integration, we could build a lighter-weight 'connector' that runs on the client-side. It would be slower and less powerful, but it would isolate our core platform from their legacy systems and could be built in a fraction of the time."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The challenge is that this lighter solution doesn't meet all of the requirements in the partnership agreement. We would need to go back and renegotiate the deal with OmniCorp, which Carter might not be happy about. But it seems like a reasonable compromise."
+      }
+    ]
+  },
+  {
+    "user": "Sarah Jones",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I'm just here to understand the timeline so I can plan our Q1 hiring."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "Our Q4 hiring plan is finalized and offers will be going out next week. I also wanted to remind everyone to submit their reimbursement requests for the company-wide wellness stipend by the end of the month."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "No blockers, but if the product roadmap is completely upended by this partnership, I will need to rewrite all our job descriptions for the Q1 hiring push, so the sooner we have a decision, the better."
+      }
+    ]
+  }
+]

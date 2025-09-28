@@ -1,0 +1,33 @@
+---
+standardize_form_input:
+  description: Process the raw form input containing {form_data} with questions and
+    answers. Standardize the language, correct typos, normalize formatting, and account
+    for language differences. Ensure all entries follow a consistent structure while
+    preserving original meaning and intent.
+  expected_output: A standardized list of question-answer pairs with consistent formatting,
+    corrected grammar and spelling, normalized language, and unified structure that
+    maintains the original meaning of all submissions.
+  agent: data_standardizer
+separate_email_worthy_content:
+  description: Review the standardized form submissions and identify entries that
+    should be converted into email communications for later triggering. Separate content
+    that would work well as email updates, notifications, or follow-up messages from
+    content that requires immediate agenda creation and meeting discussion.
+  expected_output: 'Two categorized lists with detailed content: 1) Email-worthy items
+    that should be converted into email communications for later triggering (with
+    suggested email subjects and key points), and 2) Actionable content that requires
+    immediate agenda creation and meeting discussion.'
+  agent: email_filterizer
+  context:
+  - standardize_form_input
+create_structured_agenda:
+  description: Transform the filtered actionable content into a comprehensive, structured
+    agenda. Organize items by priority, theme, or timeline. Create clear action items
+    with responsible parties, deadlines, and next steps. Ensure the agenda is ready
+    for productive meetings or project execution.
+  expected_output: A well-structured agenda document with prioritized action items,
+    organized themes, assigned responsibilities, timelines, and clear next steps that
+    can be immediately used for meetings or project planning.
+  agent: agendaizer
+  context:
+  - separate_email_worthy_content

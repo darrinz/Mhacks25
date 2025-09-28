@@ -1,0 +1,182 @@
+[
+    {
+        "user": "Isabella Rossi",
+        "meeting": "anbc",
+        "questions": [
+            {
+                "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+                "response": "We need a final, binding decision on the 'Infinite Canvas' feature for the Nebula redesign. The entire project timeline and scope hinges on this. It's the only thing we should be talking about."
+            },
+            {
+                "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+                "response": "I've finalized the Q4 product roadmap, but it currently has two versions: one with the Canvas feature and a Q1 2026 launch, and one without it that launches this November. I've also completed my mandatory HR training for the year, which is a relief."
+            },
+            {
+                "question": "What are the most significant blockers, risks, or challenges you're facing right now? Where do you need help or a decision from the team?",
+                "response": "The blocker is this indecision. We are burning money and time every day we don't have a final scope. The risk is that we try to compromise and end up building a watered-down version of the feature that satisfies no one and still delays the project."
+            }
+        ]
+    },
+    {
+        "user": "James O'Connell",
+        "meeting": "anbc",
+        "questions": [
+            {
+                "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+                "response": "I need to present the engineering team's feasibility report on the 'Infinite Canvas' feature. It's a complex topic and I need the full team's attention."
+            },
+            {
+                "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+                "response": "My team has spent the last two weeks building a proof-of-concept. We've determined that a scalable implementation would require us to migrate our entire rendering engine from Canvas2D to WebGL, which is a massive undertaking. The PoC is functional but suffers from significant memory leaks when more than 200 nodes are added to the canvas."
+            },
+            {
+                "question": "What are the most significant blockers, risks, or challenges you're facing right now? Where do you need help or a decision from the team?",
+                "response": "The blocker is a hard technical limit on our current architecture. The risk is that we commit to this feature and are forced to cut corners, resulting in a slow, buggy, and unusable product. My team's estimate is that doing this *right* will delay the Nebula project by a minimum of 3 months. I am also blocked on getting the budget approved for our new CI/CD server."
+            }
+        ]
+    },
+    {
+        "user": "Priya Patel",
+        "meeting": "anbc",
+        "questions": [
+            {
+                "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+                "response": "I want to present our market research on the 'Infinite Canvas'. Our competitors are all moving in this direction and I think not including it would be a huge mistake."
+            },
+            {
+                "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+                "response": "We've finalized the entire go-to-market strategy, including ad creatives and press releases, all of which heavily feature the 'Infinite Canvas' as our primary differentiator. We showed the mockups to our top 10 enterprise clients and their feedback was overwhelmingly positive."
+            },
+            {
+                "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+                "response": "The risk is launching a 'me-too' product without a killer feature. A 3-month delay is less risky than a failed launch. We need to commit to building our differentiator. The marketing team is blocked on finalizing the campaign until we have this decision."
+            }
+        ]
+    },
+    {
+        "user": "Liam Murphy",
+        "meeting": "anbc",
+        "questions": [
+            {
+                "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+                "response": "The 'Infinite Canvas' feature, obviously. I also want to give a heads-up about the new brand style guide."
+            },
+            {
+                "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+                "response": "The UX team has created a full high-fidelity prototype of the feature in Figma. It's beautiful and tested incredibly well in our user panels. People were really excited by it. The new brand style guide is also complete and has been distributed to the whole company."
+            },
+            {
+                "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+                "response": "We are blocked. We can't continue designing any other part of the Nebula product until we know if this core UX paradigm is being adopted or not. The decision is holding up all other design work."
+            }
+        ]
+    },
+    {
+        "user": "Chen Wei",
+        "meeting": "anbc",
+        "questions": [
+            {
+                "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+                "response": "I need to understand the data implications of the 'Infinite Canvas'. How are we storing and querying an infinitely nestable data structure?"
+            },
+            {
+                "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+                "response": "I've analyzed the query performance on our current database with a simulated nested JSON structure. After 5 levels of nesting, query times increase exponentially. A move to a graph database like Neo4j might be required, which has its own massive timeline and cost implications."
+            },
+            {
+                "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+                "response": "The risk is that we build a beautiful frontend on a backend that can't support it, leading to horrible performance and data loss. We are blocked on designing the new analytics dashboard until the data storage model is finalized."
+            }
+        ]
+    },
+    {
+        "user": "Sofia Petrova",
+        "meeting": "anbc",
+        "questions": [
+            {
+                "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+                "response": "I'm here to represent the customer's voice. The main topic for me is addressing the top requested features."
+            },
+            {
+                "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+                "response": "I've compiled a report from our support system. While a 'more flexible canvas' is a common request, our #1 most requested feature for the last 6 months has actually been 'better search and filtering'. The 'Infinite Canvas' is #5 on that list."
+            },
+            {
+                "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+                "response": "The risk is that we spend 3 extra months building a 'wow' feature while ignoring the core quality-of-life improvements our existing users are screaming for. I need the team to see this data before making a final decision."
+            }
+        ]
+    },
+    {
+        "user": "Ben Carter",
+        "meeting": "anbc",
+        "questions": [
+            {
+                "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+                "response": "I need to know the final scope of Nebula so I can start writing the test plans."
+            },
+            {
+                "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+                "response": "We've automated the entire regression suite for the existing product, which is a big win. It will free up a lot of our time for testing the new Nebula features once they are ready."
+            },
+            {
+                "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+                "response": "QA is blocked. We can't write a single test case for the 'Infinite Canvas' until we have a technical spec. A 3-month engineering delay means a 4-month delay for the launch, because QA will need time to test it."
+            }
+        ]
+    },
+    {
+        "user": "Amelia Hughes",
+        "meeting": "anbc",
+        "questions": [
+            {
+                "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+                "response": "Just here to listen and understand the timeline for the mobile app integration."
+            },
+            {
+                "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+                "response": "The mobile team has a lot on our plate right now with the iOS 19 update, so we're busy regardless. My vacation is next week, by the way."
+            },
+            {
+                "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+                "response": "No blockers for us, but a 3-month delay on Nebula would actually be helpful, as it would give us more time to focus on our own Q4 deliverables. Just being honest."
+            }
+        ]
+    },
+    {
+        "user": "Marcus Thorne",
+        "meeting": "anbc",
+        "questions": [
+            {
+                "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+                "response": "I'd like to talk about the financial implications of delaying the Nebula launch."
+            },
+            {
+                "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+                "response": "I ran the numbers. Each month of delay costs us approximately $150,000 in projected revenue and engineering salaries. A 3-month delay therefore represents a $450,000 hit to our bottom line. We have also finished closing the books on Q3, the report is now available."
+            },
+            {
+                "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+                "response": "The risk is a significant budget overrun that could impact our ability to fund other projects in the first half of next year. I need the team to understand that this isn't just a timeline decision, it's a major financial one."
+            }
+        ]
+    },
+    {
+        "user": "Chloe Moreau",
+        "meeting": "anbc",
+        "questions": [
+            {
+                "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+                "response": "I need to understand the server and infrastructure costs for the 'Infinite Canvas' feature."
+            },
+            {
+                "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+                "response": "I've reviewed the proof-of-concept from James's team. The memory leak issue is concerning. Also, if we move to a graph database as Chen suggested, our monthly cloud bill will increase by an estimated 20-25%. This is a significant, ongoing cost."
+            },
+            {
+                "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+                "response": "I am blocked from finalizing the infrastructure budget for next year until this decision is made. The financial model changes drastically depending on which path we take."
+            }
+        ]
+    }
+]

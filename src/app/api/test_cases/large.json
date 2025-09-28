@@ -1,0 +1,182 @@
+[
+  {
+    "user": "Anika Sharma",
+    "meeting": "Quarterly Retrospective & Orion Planning",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "We need to officially kick off Project Orion by agreeing on the high-level goals for the quarter. I've prepared a document with some proposals. Secondly, I want to discuss the key takeaways from the Project Nova retrospective survey that everyone filled out last week."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "I have synthesized the 50+ anonymous responses from the retro survey into key themes, which I can present. The main positive theme was team collaboration, and the main negative was perceived timeline pressure. I'm also taking next Friday off, just as a heads-up."
+      },
+      {
+        "question": "What are the most significant blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The primary risk for Project Orion is scope creep. We need to leave this meeting with a firm agreement on what we are *not* doing this quarter. I need the team's help to commit to a focused plan."
+      }
+    ]
+  },
+  {
+    "user": "Ben Carter",
+    "meeting": "Quarterly Retrospective & Orion Planning",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "My main topic is the urgent need to allocate time this quarter to pay down our technical debt. We accumulated a lot of it during the final push for Project Nova, and our codebase is becoming brittle."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "I've cataloged the major areas of tech debt, including the need to refactor our authentication service and upgrade our primary database from Postgres 12 to 15. The database upgrade alone will require a full weekend of planned downtime."
+      },
+      {
+        "question": "What are the most significant blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The blocker is that 'paying down tech debt' is never a feature we can sell, so it's always the first thing to get cut from the plan. The risk of not doing it is a future major outage or security breach. I need a commitment for at least 20% of our engineering capacity this quarter to be dedicated to this."
+      }
+    ]
+  },
+  {
+    "user": "Chloe Davis",
+    "meeting": "Quarterly Retrospective & Orion Planning",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I want to propose that we officially adopt the new 'Momentum' Design System for Project Orion. I also have a question about the process for getting user research participants, it seems really slow right now."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "I've created a demo of the proposed design system in Storybook that shows how it would accelerate our frontend development by providing ready-made, accessible components. This should make our whole process smoother."
+      },
+      {
+        "question": "What are the most significant blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The challenge is that adopting the new system will require a one-time effort from the frontend team to learn it and integrate it into our build process. It will slow us down for the first two weeks before it speeds us up. We need the team to agree to this initial investment."
+      }
+    ]
+  },
+  {
+    "user": "David Chen",
+    "meeting": "Quarterly Retrospective & Orion Planning",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I need to bring up the persistent 'Image Caching Bug' from Project Nova. It was de-prioritized during the launch rush, but it's causing real issues for our users and flooding customer support with tickets."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "I've done a root cause analysis and I have a fix ready. It involves changing how we generate ETags for image assets. My new mechanical keyboard is amazing, by the way, typing has never been more satisfying."
+      },
+      {
+        "question": "What are the most significant blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "No blockers, I just need this bug to be formally prioritized for the first sprint of Project Orion so I have the official time to implement and test the fix."
+      }
+    ]
+  },
+  {
+    "user": "Emily Rodriguez",
+    "meeting": "Quarterly Retrospective & Orion Planning",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I need to align the marketing timeline with the engineering plan for Project Orion. We need to decide on a target launch date so I can start planning the campaign."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "I can share the final performance report from the Project Nova marketing campaign. We exceeded our target for new user sign-ups by 15% but missed the target for user engagement, which is something for us to think about for Orion."
+      },
+      {
+        "question": "What are the most significant blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "I'm blocked from booking ad placements or doing any press outreach until we have a feature list and a target launch window. The sooner we can decide on the scope, the better our marketing launch will be."
+      }
+    ]
+  },
+  {
+    "user": "Frank Miller",
+    "meeting": "Quarterly Retrospective & Orion Planning",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I want to discuss the state of our automated testing environment. It was a major source of frustration during the last quarter."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "Our end-to-end tests are still really flaky. They fail about 30% of the time due to timing issues, not actual bugs. This slows down every single deployment and makes it hard to trust our test suite. The team has been doing a great job with writing unit tests, though."
+      },
+      {
+        "question": "What are the most significant blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The risk is that we either ship a critical bug because we don't trust our tests, or we slow our development velocity to a crawl with manual testing. I want to propose we invest in a better testing tool like 'Cypress' and dedicate a full sprint to improving test stability."
+      }
+    ]
+  },
+  {
+    "user": "Grace Kim",
+    "meeting": "Quarterly Retrospective & Orion Planning",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I need to bring the top 3 customer complaints from the last quarter to the team's attention so we can discuss how to address them in Project Orion."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "The complaints are: 1) The search feature is slow and inaccurate, 2) The mobile web experience is poor, and 3) It's too hard to export data. I've compiled a report with specific customer quotes for each. Also, our new support team member, Sam, starts tomorrow."
+      },
+      {
+        "question": "What are the most significant blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The challenge is making sure this direct customer feedback gets prioritized alongside new features and technical debt. I need the team to help decide where these improvements fit into the Orion roadmap."
+      }
+    ]
+  },
+  {
+    "user": "Henry Williams",
+    "meeting": "Quarterly Retrospective & Orion Planning",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I'd like to talk about creating more mentorship and pair programming opportunities for junior engineers on the team."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "I completed all my tasks for the final Nova sprint and I learned a lot, but I feel like I could grow faster if I had more structured time with senior members. I finished the company-wide cybersecurity training last week as well."
+      },
+      {
+        "question": "What are the most significant blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "No blockers, it's more of a proposal to help the team in the long run. By investing a little more time in mentoring now, we can increase the whole team's velocity and bus factor in the future."
+      }
+    ]
+  },
+  {
+    "user": "Isabella Rossi",
+    "meeting": "Quarterly Retrospective & Orion Planning",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I'd like to present the final user engagement data from Project Nova and propose the key metrics we should track for Project Orion."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "The data shows that while new user acquisition was high after the Nova launch, our 30-day retention rate was 10% lower than our goal. This suggests users liked the concept but didn't find long-term value. For Orion, I propose we focus on a 'North Star' metric of weekly active users."
+      },
+      {
+        "question": "What are the most significant blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "My main challenge is that our current analytics tool makes it hard to build funnels and segment users properly. I need engineering to help me get a data export pipeline set up to our new data warehouse."
+      }
+    ]
+  },
+  {
+    "user": "Jack Wilson",
+    "meeting": "Quarterly Retrospective & Orion Planning",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I need to raise a security concern about an outdated server dependency (Log4j v1) that was flagged in our last audit. We need to prioritize updating it."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "I've researched the upgrade path and it's not trivial, as several of our older services depend on it. On a positive note, our CI/CD pipeline uptime for the last quarter was 99.98%."
+      },
+      {
+        "question": "What are the most significant blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The risk is a major, well-known security vulnerability sitting in our production environment. This should be a P0, high-priority ticket for the next sprint. I need product and engineering to officially accept this work into the plan."
+      }
+    ]
+  }
+]

@@ -1,0 +1,182 @@
+[
+  {
+    "user": "Eleanor Vance",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "The singular focus of this meeting is to decide on our competitive response to Apex Solutions. We need to choose between a short-term reactive plan and a long-term strategic one."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "I have prepared a summary of the two main proposals: Plan A, 'Price War', which involves immediately matching Apex's prices, and Plan B, 'Innovation Surge', which involves ignoring them for now and accelerating our next-gen product."
+      },
+      {
+        "question": "What are the most significant blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The blocker is a lack of consensus. The sales and product teams are deeply divided on this. The risk of inaction is that we continue to lose market share every week. We cannot leave this meeting without a decision."
+      }
+    ]
+  },
+  {
+    "user": "Rajesh Kumar",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "We need to discuss matching Apex's prices immediately. We are getting killed in the field right now."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "I've spoken to three major clients we lost to Apex last week. All three cited price as the only reason. Our product is superior, but not 30% superior. I have also submitted my team's expense reports for last month."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "My team is blocked from closing deals. Our pipeline for this quarter is at serious risk. We need approval for a temporary, aggressive discount plan to compete, otherwise we will miss our numbers by a wide margin."
+      }
+    ]
+  },
+  {
+    "user": "Samantha Greene",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I strongly believe we need to discuss accelerating the 'Odyssey' platform, our next-gen product. Competing on price is a race to the bottom and devalues our brand."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "The product team has finalized the core feature set for Odyssey, and it includes features that Apex's cheap product simply cannot compete with, like AI-powered analytics and enterprise-grade security."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The blocker is resources. To accelerate Odyssey, we would need to pull two engineers off the current-gen product team, which would slow down bug fixes for existing customers. We need a decision on whether this short-term pain is worth the long-term gain."
+      }
+    ]
+  },
+  {
+    "user": "Leo Tolstoy",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I need to present the technical timeline for the 'Odyssey' platform acceleration."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "The core architecture for Odyssey is solid. If we get the two additional engineers Samantha mentioned, we could realistically have a beta version ready for key clients in 6 months, with a full launch in 9 months. My new standing desk arrived, by the way, it's pretty nice."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The risk is burnout. Accelerating an already ambitious project is a huge ask for my team. We can do it, but we'd need a clear commitment from leadership and protection from other distractions. A 9-month timeline is aggressive and has no room for error."
+      }
+    ]
+  },
+  {
+    "user": "Maria Rodriguez",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "The financial impact of the 'Price War' plan."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "I've modeled the impact of a 30% price cut. It would completely erase our profit margin and put us in the red for at least two quarters. We would have to cut costs elsewhere, possibly including a hiring freeze."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The risk is that we start a price war that we can't win. Apex is a venture-backed startup that is likely prepared to lose money for years to gain market share. We are not. We need a sustainable plan."
+      }
+    ]
+  },
+  {
+    "user": "David Kim",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I want to talk about a third option: a marketing campaign focused on our brand quality and security, to differentiate us from the 'cheap' competitor."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "My team has drafted a campaign called 'Built to Last' that highlights our reliability, customer support, and superior features. It's a way to fight back without cutting prices or waiting for a new product. We've also onboarded a new social media manager, Clara."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The blocker is budget. Launching this campaign would require an un-budgeted spend of $100,000. We need a decision on whether this is a worthwhile investment compared to the other options."
+      }
+    ]
+  },
+  {
+    "user": "Jessica Chen",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "Just here to understand the impact on customer support."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "Our ticket volume is up 15% with questions about our pricing compared to Apex. Customers are asking if we will price match. We need a clear script to give them."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "We are blocked from providing clear responses to customers, which is causing frustration. We need a decision on our pricing strategy so we can create a consistent talking track for the support team."
+      }
+    ]
+  },
+  {
+    "user": "Ben Kenobi",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I'd like to understand the morale implications of our decision."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "I've had informal chats with several engineers. The idea of accelerating 'Odyssey' is exciting to them. The idea of a price war and a hiring freeze is, frankly, demoralizing. I've also scheduled the yearly fire safety training for next Tuesday."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The risk of the 'Price War' plan is a significant drop in team morale and potential attrition of our best engineers, who want to build great things, not just cheap things. I need leadership to consider this cultural impact."
+      }
+    ]
+  },
+  {
+    "user": "Laura Williams",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I want to share our latest competitive analysis of Apex's product."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "We've done a full teardown. Their product is fast and cheap, but it lacks any of our enterprise security features, has no third-party integrations, and their support is email-only. It's a classic MVP for small businesses, not for our core enterprise customers."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The challenge is making sure we communicate our strengths effectively. We are losing deals not because our product is worse, but because our value proposition isn't being clearly articulated against this new, cheaper alternative."
+      }
+    ]
+  },
+  {
+    "user": "Robert Miller",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I am concerned about the bug fix velocity for our current product if we re-assign engineers."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "My team is currently on track to close 25 P2 bugs this quarter. If we lose two engineers to 'Odyssey', that number will drop to less than 10. The quarterly employee satisfaction survey also closes tomorrow, please remind your teams to fill it out."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The risk of the 'Innovation Surge' plan is that our current product quality will decline, which could alienate our existing customer base while we're waiting for the new product to be ready. We need to decide if we're willing to accept that risk."
+      }
+    ]
+  }
+]

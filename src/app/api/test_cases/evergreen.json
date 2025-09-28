@@ -1,0 +1,182 @@
+[
+  {
+    "user": "Javier Morales",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "We need to get formal approval for the Q1 budget for Operation Evergreen. I'm proposing we start with two key projects: the solar panel installation on the headquarters roof and the R&D investment in biodegradable packaging."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "I have completed a 50-page proposal detailing the Evergreen initiative, including projected carbon offset figures and a high-level timeline. I've also been accepted to speak at the 'GreenTech 2026' conference, which is exciting."
+      },
+      {
+        "question": "What are the most significant blockers, risks, or challenges you're facing right now? Where do you need help or a decision from the team?",
+        "response": "The main blocker is budgetary hesitation from the finance department. The risk is that if we don't act decisively, our competitors who have already launched similar initiatives will capture the market's attention and goodwill. We need a firm budget commitment today."
+      }
+    ]
+  },
+  {
+    "user": "Katherine Bishop",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I need to discuss the financial reality of the Operation Evergreen proposal. The costs are substantial and we need to be transparent about the impact on our profitability."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "I've analyzed Javier's proposal. The solar panel project has a 15-year ROI, which is far longer than our typical capital expenditure payback period of 5 years. The R&D project has no guaranteed ROI at all. I have also finalized the Q3 financial statements for the board meeting next week."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "I am blocking the budget approval as it stands. The financial risk is that we commit to a $10 million initial expenditure that will negatively impact our quarterly earnings, potentially angering shareholders. We need to find a more phased, cost-effective approach."
+      }
+    ]
+  },
+  {
+    "user": "David Chen",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I want to discuss the operational disruption of the proposed solar panel installation on the HQ roof."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "I've spoken with the contractors. To install the panels, they will need to close our main shipping and receiving bay for an estimated 4-6 weeks due to crane operations. This is a massive disruption to our entire supply chain."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The blocker is the logistics of the installation. We risk significant order fulfillment delays, which will directly impact revenue and customer satisfaction. We need to find an alternative installation plan or a different project to start with."
+      }
+    ]
+  },
+  {
+    "user": "Anna Petrova",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "The R&D project for biodegradable packaging materials. This is a huge opportunity for us."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "My team has already done preliminary research into mycelium-based polymers. They show incredible promise as a replacement for our current styrofoam packaging. The material cost is currently about 5x higher, but we believe we can bring that down with scale and further research."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The blocker is funding. We need a $2 million initial investment to equip a lab and hire two material scientists. The risk is that if we don't invest in this now, our competitors will patent the key processes first."
+      }
+    ]
+  },
+  {
+    "user": "Michael Schmidt",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I need to understand the marketing and PR strategy for Operation Evergreen."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "We have drafted a campaign concept called 'Tomorrow's Promise, Today's Commitment.' It's a powerful message that could significantly boost our brand reputation among younger demographics. We are also in the final stages of hiring a new social media intern."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "We are blocked from producing any materials until the company formally commits to the initiative and approves a budget. We can't market a promise that the company hasn't actually made yet."
+      }
+    ]
+  },
+  {
+    "user": "Jessica Miller",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "The legal and compliance aspects of our carbon neutral claims."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "I have reviewed the FTC's Green Guides and the proposed SEC rules on climate disclosures. Making a 'carbon neutral by 2030' claim is a legally binding statement that carries significant risk if we fail to meet it. It opens us up to potential lawsuits."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The risk is making a public commitment before we have a technologically and financially feasible plan. I would advise against any public announcement until we are 100% confident we can achieve the goal."
+      }
+    ]
+  },
+  {
+    "user": "Sarah Chen",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I'm here to talk about employee engagement for Operation Evergreen."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "We ran an internal survey, and 'sustainability initiatives' was the #1 thing employees said would increase their pride in the company. There is huge internal support for this. Also, a reminder that open enrollment for benefits starts next week."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The risk of *not* doing this is a decline in employee morale and difficulty in recruiting top talent, who increasingly want to work for mission-driven companies. We need a clear signal of commitment from leadership to show our employees we're serious."
+      }
+    ]
+  },
+  {
+    "user": "Ben Carter",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "I can speak to the physical installation of the solar panels."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "I've completed the structural survey of the HQ roof. The good news is it can support the weight of the panels. The bad news is the roofing material is only rated for another 5 years, so we'd ideally need to replace the entire roof before installing a 20-year solar array, which dramatically increases the cost."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The blocker is the unexpected cost of the roof replacement. It adds about $1.5 million to the project cost that wasn't in the original proposal. We need a decision on whether to accept this additional cost."
+      }
+    ]
+  },
+  {
+    "user": "Olivia Jones",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "The impact of the proposed changes on our suppliers and manufacturing partners."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "Switching to biodegradable packaging would require us to re-tool our primary packaging line. I got a preliminary quote from our vendor, and it would be a six-month project with significant downtime."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "The blocker is the manufacturing downtime. We can't afford to shut down our main production line for six months. We would need to build a parallel line first, which adds even more cost and complexity to the project."
+      }
+    ]
+  },
+  {
+    "user": "Tom Williams",
+    "meeting": "anbc",
+    "questions": [
+      {
+        "question": "What key topics, decisions, or agenda items are most important for us to cover in this meeting to make the best use of our time?",
+        "response": "Just here to listen and understand the IT support requirements."
+      },
+      {
+        "question": "On any of the key topics (yours or others'), what progress have you made, contributions can you share, or updates can you provide since our last sync?",
+        "response": "The IT team has just completed the company-wide laptop refresh, so that's one big project off our plate. It went pretty smoothly."
+      },
+      {
+        "question": "Are there any blockers, risks, or challenges you're currently facing right now? Where do you need help or a decision from the team?",
+        "response": "No blockers for us, but the R&D lab for new materials would require new network drops and dedicated server support, which we'd need to resource."
+      }
+    ]
+  }
+]
