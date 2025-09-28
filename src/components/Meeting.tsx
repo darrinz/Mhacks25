@@ -77,7 +77,7 @@ export default function Meeting({
         '&:hover': { boxShadow: 6, transform: 'translateY(-2px)' },
       }}
     >
-      <CardActionArea onClick={onClickCard} sx={{ px: 4, py: 0 }}>
+  <CardActionArea component="div" onClick={onClickCard} sx={{ px: 4, py: 0 }}>
         <CardContent>
           <Stack direction="row" alignItems="center" spacing={2}>
             <Box sx={{ flex: 1, minWidth: 0 }}>

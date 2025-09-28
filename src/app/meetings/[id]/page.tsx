@@ -1,19 +1,36 @@
-"use client";
-
 import React from "react";
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import { useRouter, useParams } from "next/navigation";
-import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import MeetingView from "@/components/MeetingView";
 import MeetingForm from "@/components/MeetingForm";
 import MeetingSummary from "@/components/MeetingSummary";
+import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 
-export default function MeetingDetailPage() {
-	const router = useRouter();
-	const params = useParams();
-	const meetingId = params.id as string;
+type DatabaseMeeting = {
+	id: number;
+	date: string;
+	title: string;
+	description: string | null;
+	owner: string | null;
+	pretasks: any;
+	attendees: any;
+};
+
+export default async function MeetingDetailPage({ params }: { params: { id: string } }) {
+	const meetingId = params.id;
+	
+	// Fetch meeting from database
+	const supabase = await createClient();
+	
+	const { data: meetingData, error } = await supabase
+		.from('meetings')
+		.select('*')
+		.eq('id', parseInt(meetingId))
+		.single();
+	
+	if (error || !meetingData) {
+		console.error('Error fetching meeting:', error);
+		redirect('/meetings');
+	}
 
 	// Meeting state data - this should match the data from meetings/page.tsx
 	const meetingsStateData = [
@@ -45,111 +62,22 @@ export default function MeetingDetailPage() {
 
 	const meetingState = meetingsStateData.find(m => m.id === parseInt(meetingId));
 
-	// Mock meeting data with questions - in a real app, you'd fetch this based on the ID
-	const mockMeetings = {
-		"1": {
-			name: "Weekly Sync",
-			datetime: new Date().toISOString(),
-			description: "Team sync to review progress and blockers. This is a detailed description of what we'll cover in this meeting.",
-			hasPendingTasks: false,
-			questions: [
-				{
-					id: "progress",
-					question: "What progress did you make this week?"
-				},
-				{
-					id: "blockers",
-					question: "What blockers are you currently facing?"
-				},
-				{
-					id: "help_needed",
-					question: "Do you need help with anything?"
-				}
-			]
-		},
-		"2": {
-			name: "Design Review",
-			datetime: new Date().toISOString(),
-			description: "Review new designs for the onboarding flow. We'll go through the wireframes, discuss user feedback, and finalize the approach.",
-			hasPendingTasks: true,
-			questions: [
-				{
-					id: "design_feedback",
-					question: "What are your thoughts on the new designs?"
-				},
-				{
-					id: "user_concerns",
-					question: "Which areas need more attention?"
-				},
-				{
-					id: "approval_status",
-					question: "Do you approve the current design direction?"
-				}
-			]
-		},
-		"3": {
-			name: "Project Kickoff",
-			datetime: new Date().toISOString(),
-			description: "Introduce the new project and align on milestones. Setting expectations and timeline for the upcoming quarter.",
-			hasPendingTasks: false,
-			questions: [
-				{
-					id: "role_understanding",
-					question: "Describe your understanding of your role in this project"
-				},
-				{
-					id: "timeline_concerns",
-					question: "Do you have any concerns about the proposed timeline?"
-				},
-				{
-					id: "resources_needed",
-					question: "What resources or support do you need to be successful?"
-				}
-			]
-		},
-		"4": {
-			name: "One-on-one",
-			datetime: new Date().toISOString(),
-			description: "Quarterly check-in to discuss career goals, feedback, and professional development opportunities.",
-			hasPendingTasks: false,
-			questions: [
-				{
-					id: "career_goals",
-					question: "What are your career goals for the next quarter?"
-				},
-				{
-					id: "satisfaction",
-					question: "How satisfied are you with your current role?"
-				},
-				{
-					id: "development_areas",
-					question: "Which areas would you like to develop?"
-				},
-				{
-					id: "feedback",
-					question: "Any feedback for your manager or the team?"
-				}
-			]
-		},
+	// Transform database response to Meeting object format
+	const meeting = {
+		name: meetingData.title,
+		datetime: meetingData.date,
+		description: meetingData.description || "",
+		hasPendingTasks: meetingState?.hasPendingTasks || false,
+		questions: Array.isArray(meetingData.pretasks) 
+			? meetingData.pretasks.map((task: string, index: number) => ({
+				id: `task_${index}`,
+				question: task
+			}))
+			: []
 	};
 
-	const meeting = mockMeetings[meetingId as keyof typeof mockMeetings];
-
-	if (!meeting || !meetingState) {
-		return (
-			<Container maxWidth="lg" sx={{ py: 3 }}>
-				<Typography variant="h5" color="error">
-					Meeting not found
-				</Typography>
-				<Button
-					startIcon={<ArrowBackRoundedIcon />}
-					onClick={() => router.push('/meetings')}
-					sx={{ mt: 2 }}
-				>
-					Back to Meetings
-				</Button>
-			</Container>
-		);
+	if (!meetingState) {
+		redirect('/meetings');
 	}
 
 	// Conditional rendering based on state

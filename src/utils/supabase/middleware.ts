@@ -37,18 +37,21 @@ export async function updateSession(request: NextRequest) {
 
   // Define which paths unauthenticated users are allowed to access.
   // By default we allow the public home page ("/") and the login page ("/login").
-  const publicPaths = ["/", "/login"];
+  const publicPaths = ["/", "/login", "/auth/login"];
 
   const pathname = request.nextUrl.pathname;
-
+  
+  console.log(user)
   if (!user) {
+    console.log("no user")
     const allowed = publicPaths.some((p) => pathname === p || pathname.startsWith(p + "/"));
     if (!allowed) {
-      // no user: redirect any attempt to access protected routes back to the public home page
+      // no user: redirect any attempt to access protected routes to login
       const url = request.nextUrl.clone();
       url.pathname = "/";
       return NextResponse.redirect(url);
     }
+    return supabaseResponse;
   } else {
     // logged-in users shouldn't stay on the login page; send them to the meetings area
     if (pathname === "/login" || pathname === "/auth/login") {
@@ -56,6 +59,7 @@ export async function updateSession(request: NextRequest) {
       url.pathname = "/meetings";
       return NextResponse.redirect(url);
     }
+    return supabaseResponse;
   }
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is. If you're

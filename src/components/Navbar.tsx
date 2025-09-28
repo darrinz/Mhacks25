@@ -150,7 +150,7 @@ export default function Navbar({
                   boxShadow: "none",
                 }}
               >
-                Sign up
+                Sign in
               </Button>
             </>
           ) : (
