@@ -4,11 +4,12 @@ import { Ramabhadra } from "next/font/google";
 
 /**
  * GET /api/meetings
- * Returns the next upcoming meeting for the authenticated user.
+ * Returns all meetings for the authenticated user (both owned and invited).
  * The user's email is read from the Supabase session. Meetings.attendees is a JSONB
  * array of emails/names; we check whether the user's email is contained in that array.
+ * Results are sorted by date (most recent first).
  */
-export async function GET(request: Request) {
+export async function GET() {
 	try {
 	const supabase = await createClient();
 
@@ -27,17 +28,14 @@ export async function GET(request: Request) {
 		// Query meetings where attendees JSONB array contains the user's email.
 		// Also ensure the meeting date (stored as text) is in the future by casting to timestamptz.
 		// We order ascending and take the first result.
-	// Use ISO timestamp for comparisons against a timestamptz `date` column
-	const now = new Date().toISOString();
 
 
-		// All the user invited emails
+		// All the user invited emails (all meetings, not just future ones)
 		let { data: invitedMeetings, error } = await supabase
 			.from("meetings")
 			.select("*")
 			.contains('attendees', [email])
-			.gt('date', now)
-			.order("date", { ascending: true });
+			.order("date", { ascending: false }); // Most recent first
 
 		// Helper to normalize attendee entries into an array of emails (strings)
 		function extractEmails(attArr: any): string[] {
@@ -60,12 +58,11 @@ export async function GET(request: Request) {
 		// can handle different shapes (strings or objects) inside the attendees JSONB.
 		if (error || !Array.isArray(invitedMeetings) || invitedMeetings.length === 0) {
 			if (error) console.warn('invited meetings .contains query failed, falling back to JS filter:', error.message);
-			// Fetch candidate meetings (by date) and filter locally
+			// Fetch all candidate meetings and filter locally
 			const { data: candidates, error: candErr } = await supabase
 				.from('meetings')
 				.select('*')
-				.gt('date', now)
-				.order('date', { ascending: true });
+				.order('date', { ascending: false }); // Most recent first
 
 			if (candErr) {
 				console.warn('fallback candidate fetch failed:', candErr.message);
@@ -87,8 +84,7 @@ export async function GET(request: Request) {
 			.from("meetings")
 			.select("*")
 			.eq('owner', email)
-			.gt('date', now)
-			.order("date", { ascending: true });
+			.order("date", { ascending: false }); // Most recent first
 
 		if (ownedError) {
 			console.warn("owned meetings query failed:", ownedError.message);
@@ -101,15 +97,14 @@ export async function GET(request: Request) {
 
 
 
-		// Merge invited + owned and sort by parsed date safely (fall back to 0 if unparsable)
-		// Merge invited + owned and sort by the `date` timestamp
+		// Merge invited + owned and sort by the `date` timestamp (most recent first)
 		let meetings = [...invited_meetings, ...owned_meetings].sort((a: any, b: any) =>
-			(new Date(a.date ?? a.datetime).getTime() || 0) - (new Date(b.date ?? b.datetime).getTime() || 0)
+			(new Date(b.date ?? b.datetime).getTime() || 0) - (new Date(a.date ?? a.datetime).getTime() || 0)
 		);
 
         // Check for responses for each meeting
         const meetingsWithResponses = await Promise.all(meetings.map(async (meeting) => {
-			const { data: responses, error: responseError } = await supabase
+			const { data: responses } = await supabase
 				.from("user_meeting_responses")
 				.select("*")
 				.eq('meeting_id', meeting.id)
@@ -128,8 +123,8 @@ export async function GET(request: Request) {
         meetings = meetingsWithResponses;
         // All user hosted meetins
 
-		if (!meetings) {
-			return NextResponse.json({ error: "No upcoming meetings" }, { status: 404 });
+		if (!meetings || meetings.length === 0) {
+			return NextResponse.json({ meetings: [] }, { status: 200 });
 		}
 
         console.log("All metings:")

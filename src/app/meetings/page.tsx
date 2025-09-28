@@ -26,30 +26,31 @@ export default function MeetingsPage() {
 	useEffect(() => {
 		let mounted = true;
 
-		async function loadUpcoming() {
+		async function loadAllMeetings() {
 			try {
 				const res = await fetch("/api/meetings");
-				if (!res.ok) return; // keep mock data on failure
+				if (!res.ok) return; // keep empty array on failure
 				const body = await res.json();
-				if (!body?.meetings) return;
-				const m = body.meetings[0];
-				// map API meeting shape to Meeting component props
-				const mapped = {
-					id: m.id ?? "api",
-					name: m.title,
+				if (!body?.meetings || !Array.isArray(body.meetings)) return;
+				
+				// map all meetings from API response to Meeting component props
+				const mappedMeetings = body.meetings.map((m: any) => ({
+					id: m.id ?? "unknown",
+					name: m.title ?? "Untitled Meeting",
 					datetime: m.datetime ?? m.date ?? new Date().toISOString(),
 					description: m.description ?? "",
 					isOwner: !!m.isOwner,
-					isReady: false,
-				};
-				if (mounted) setMeetingsData([mapped]);
+					isReady: !!m.isReady,
+				}));
+				
+				if (mounted) setMeetingsData(mappedMeetings);
 			} catch (err) {
-				// silently keep mock data on error
-				console.warn("Failed to load upcoming meeting:", err);
+				// silently keep empty array on error
+				console.warn("Failed to load meetings:", err);
 			}
 		}
 
-		loadUpcoming();
+		loadAllMeetings();
 		return () => {
 			mounted = false;
 		};
@@ -58,7 +59,7 @@ export default function MeetingsPage() {
 	return (
 		<Container maxWidth="lg" sx={{ py: 3 }}>
 			<Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
-				<Typography variant="h5">Meetings</Typography>
+				<Typography variant="h5">All Meetings</Typography>
 				<div>
 					<Button variant="contained" onClick={() => router.push('/meetings/create')}>Create</Button>
 				</div>
