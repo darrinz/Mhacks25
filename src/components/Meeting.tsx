@@ -199,7 +199,27 @@ if (meetings.length > 0) {
       })
         .then((res) => res.json())
         .then((agendaResult) => {
-          console.log("Agenda created:", agendaResult);
+          const agendaWithTitle = {
+            markdown: agendaResult,
+            title: title
+          };
+          console.log("Agenda created:", agendaWithTitle);
+          
+          // Post the agenda to the database
+          fetch("/api/postmarkdown", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(agendaWithTitle),
+          })
+            .then((res) => res.json())
+            .then((result) => {
+              console.log("Agenda saved to database:", result);
+            })
+            .catch((err) => {
+              console.error("Error saving agenda:", err);
+            });
         })
         .catch((err) => {
           console.error("Error creating agenda:", err);

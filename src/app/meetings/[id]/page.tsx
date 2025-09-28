@@ -17,8 +17,13 @@ type DatabaseMeeting = {
 	attendees: any;
 };
 
-export default async function MeetingDetailPage({ params }: { params?: { id?: string } }) {
-	const meetingId = params?.id;
+export default async function MeetingDetailPage({ 
+	params 
+}: { 
+	params: Promise<{ id?: string }>;
+}) {
+	const resolvedParams = await params;
+	const meetingId = resolvedParams?.id;
 
 	// If no meetingId supplied, redirect to meetings list
 	if (!meetingId) {
@@ -27,8 +32,6 @@ export default async function MeetingDetailPage({ params }: { params?: { id?: st
 	
 	// Fetch meetings from API to get isOwner and isReady properties
 	const headersList = await headers();
-	const host = headersList.get('host') || 'localhost:3000';
-	const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
 	
 	let meetingData;
 	let isOwner = false;
@@ -36,7 +39,9 @@ export default async function MeetingDetailPage({ params }: { params?: { id?: st
 
 	try {
 		// Fetch from our API endpoint which includes isOwner and isReady
-		const response = await fetch(`/api/meetings`, {
+		const host = headersList.get('host') || 'localhost:3000';
+		const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
+		const response = await fetch(`${protocol}://${host}/api/meetings`, {
 			headers: {
 				Cookie: headersList.get('cookie') || '',
 			},
@@ -62,32 +67,16 @@ export default async function MeetingDetailPage({ params }: { params?: { id?: st
 		redirect('/meetings');
 	}
 
-	// Transform database response to Meeting object format
-	const meeting = {
-		name: meetingData.title,
-		// normalize DB `date` (timestamptz) to `datetime` for UI components
-		datetime: meetingData.datetime || meetingData.date,
-		description: meetingData.description || "",
-		hasPendingTasks: !isReady, // If not ready, they have pending tasks
-		questions: Array.isArray(meetingData.pretasks)
-			? meetingData.pretasks.map((task: string, index: number) => ({
-				id: `task_${index}`,
-				question: task
-			}))
-			: []
-	};
 
-	// Conditional rendering based on API data
-	// If isOwner is true, render MeetingForm
+	// Conditional rendering based on boolean flags
 	if (isOwner) {
 		return <MeetingForm />;
 	}
-
-	// If isReady is true, render MeetingSummary
+	
 	if (isReady) {
 		return <MeetingSummary meetingId={meetingId} />;
 	}
-
-	// If not ready, render MeetingView (default) for pending tasks
+	
+	// Default: not ready and not owner
 	return <MeetingView meetingId={meetingId} />;
 }

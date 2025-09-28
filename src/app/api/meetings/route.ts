@@ -31,11 +31,9 @@ export async function GET() {
 
 
 		// All the user invited emails (all meetings, not just future ones)
-		let { data: invitedMeetings, error } = await supabase
-			.from("meetings")
-			.select("*")
-			.contains('attendees', [email])
-			.order("date", { ascending: false }); // Most recent first
+		// Skip the JSONB query that's causing issues and go straight to JS filtering
+		let invitedMeetings: any[] = [];
+		let error: any = null;
 
 		// Helper to normalize attendee entries into an array of emails (strings)
 		function extractEmails(attArr: any): string[] {
@@ -54,25 +52,20 @@ export async function GET() {
 				.filter(Boolean) as string[];
 		}
 
-		// If the contains query failed or returned nothing, fall back to a JS filter that
-		// can handle different shapes (strings or objects) inside the attendees JSONB.
-		if (error || !Array.isArray(invitedMeetings) || invitedMeetings.length === 0) {
-			if (error) console.warn('invited meetings .contains query failed, falling back to JS filter:', error.message);
-			// Fetch all candidate meetings and filter locally
-			const { data: candidates, error: candErr } = await supabase
-				.from('meetings')
-				.select('*')
-				.order('date', { ascending: false }); // Most recent first
+		// Fetch all candidate meetings and filter locally using JS
+		const { data: candidates, error: candErr } = await supabase
+			.from('meetings')
+			.select('*')
+			.order('date', { ascending: false }); // Most recent first
 
-			if (candErr) {
-				console.warn('fallback candidate fetch failed:', candErr.message);
-				invitedMeetings = [];
-			} else {
-				invitedMeetings = (candidates || []).filter((m: any) => {
-					const emails = extractEmails(m.attendees);
-					return emails.includes(email);
-				});
-			}
+		if (candErr) {
+			console.warn('candidate fetch failed:', candErr.message);
+			invitedMeetings = [];
+		} else {
+			invitedMeetings = (candidates || []).filter((m: any) => {
+				const emails = extractEmails(m.attendees);
+				return emails.includes(email);
+			});
 		}
 
 		const invited_meetings = (invitedMeetings || []).map((meeting: any) => ({ ...meeting, isOwner: false }));
