@@ -15,10 +15,22 @@ import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import ScheduleRoundedIcon from "@mui/icons-material/ScheduleRounded";
 import AssignmentLateRoundedIcon from "@mui/icons-material/AssignmentLateRounded";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import { createBrowserClient } from "@supabase/ssr";
 
 type Question = {
 	id: string;
 	question: string;
+};
+
+type QuestionsAndAnswers = {
+	question: string;
+	response: string;
+};
+
+type StandardizerPayload = {
+	user: string;
+	meeting: string;
+	questions: QuestionsAndAnswers[];
 };
 
 type Meeting = {
@@ -37,12 +49,69 @@ type MeetingViewProps = {
 export default function MeetingView({ meeting, meetingId }: MeetingViewProps) {
 	const router = useRouter();
 	const [responses, setResponses] = useState<Record<string, any>>({});
+	const [loading, setLoading] = useState(false);
 
 	const handleResponseChange = (questionId: string, value: any) => {
 		setResponses(prev => ({
 			...prev,
 			[questionId]: value
 		}));
+	};
+
+	const handleSubmit = async () => {
+		setLoading(true);
+		
+		try {
+			// Get current user email from Supabase
+			const supabase = createBrowserClient(
+				process.env.NEXT_PUBLIC_SUPABASE_URL!,
+				process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+			);
+
+			const { data: { user }, error } = await supabase.auth.getUser();
+			
+			if (error || !user?.email) {
+				throw new Error("User not authenticated or email not available");
+			}
+
+			// Transform responses to match the required schema
+			const questionsAndAnswers: QuestionsAndAnswers[] = meeting.questions.map(question => ({
+				question: question.question,
+				response: responses[question.id] || ""
+			}));
+
+			// Create standardizer payload
+			const payload: StandardizerPayload = {
+				user: user.email,
+				meeting: meetingId,
+				questions: questionsAndAnswers
+			};
+			console.log(JSON.stringify(payload));
+
+			// Send POST request to standardizer endpoint
+			const response = await fetch("https://localhost:3000/api/standardize", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(payload),
+			});
+
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+
+			const result = await response.json();
+			console.log("Standardizer response:", result);
+			
+			// TODO: Handle successful response (e.g., show success message, redirect)
+			
+		} catch (error) {
+			console.error("Error submitting responses:", error);
+			// TODO: Show error message to user
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	const dateObj = new Date(meeting.datetime);
@@ -137,12 +206,10 @@ export default function MeetingView({ meeting, meetingId }: MeetingViewProps) {
 							variant="contained" 
 							size="large" 
 							fullWidth
-							onClick={() => {
-								console.log("Form responses:", responses);
-								// Here you would submit the responses to your backend
-							}}
+							onClick={handleSubmit}
+							disabled={loading}
 						>
-							Submit Responses
+							{loading ? "Submitting..." : "Submit Responses"}
 						</Button>
 					</Stack>
 				</CardContent>
