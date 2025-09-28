@@ -2,6 +2,7 @@ import os
 from agentmail import AgentMail
 from agentmail.core.api_error import ApiError
 
+
 def send_email_with_agentmail(recipients, email_items, meeting_title="Meeting Prep"):
     """
     Formats and sends an email summary using the Agentmail API.
