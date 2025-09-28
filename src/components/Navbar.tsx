@@ -16,13 +16,15 @@ import {
   useTheme,
 } from "@mui/material";
 
+import { createBrowserClient } from "@supabase/ssr";
+import { NextResponse } from "next/server";
+
 type User = { name: string; avatarUrl?: string };
 
 type NavbarProps = {
   isAuthenticated?: boolean;
   user?: User;
   onLogin?: () => void;
-  onSignup?: () => void;
   onLogout?: () => void;
 };
 
@@ -30,7 +32,6 @@ export default function Navbar({
   isAuthenticated,
   user,
   onLogin,
-  onSignup,
   onLogout,
 }: NavbarProps) {
   const theme = useTheme();
@@ -52,6 +53,36 @@ export default function Navbar({
 
   const initials =
     user?.name?.split(" ").map(s => s[0]).join("").slice(0, 2).toUpperCase() || "U";
+
+    const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
+
+    const handleGoogleLogin = async () => {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`, // Redirect to the callback route
+      },
+    });
+
+    if (data.url) {
+      return NextResponse.redirect(data.url);
+    }
+
+    if (error) {
+      console.error("Error logging in with Google:", error.message);
+    }
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    console.log("User created at:", user?.created_at);
+    console.log("User last sign-in at:", user?.last_sign_in_at);
+
+    console.log("Google login response:", data);
+  };
 
   return (
     <AppBar
@@ -81,7 +112,7 @@ export default function Navbar({
         >
           Smoothie
         </Typography>
-        
+
         {/* Right */}
         <Box sx={{ ml: "auto", display: "flex", alignItems: "center", gap: 1 }}>
           {!authed ? (
@@ -92,7 +123,7 @@ export default function Navbar({
               <Button
                 variant="contained"
 
-                onClick={onSignup}
+                onClick={handleGoogleLogin}
                 sx={{
                   px: 2.5,
                   borderRadius: theme.shape.borderRadius,
