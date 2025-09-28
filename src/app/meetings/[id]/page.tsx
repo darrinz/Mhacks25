@@ -15,8 +15,13 @@ type DatabaseMeeting = {
 	attendees: any;
 };
 
-export default async function MeetingDetailPage({ params }: { params: { id: string } }) {
-	const meetingId = params.id;
+export default async function MeetingDetailPage({ params }: { params?: { id?: string } }) {
+	const meetingId = params?.id;
+
+	// If no meetingId supplied, redirect to meetings list
+	if (!meetingId) {
+		redirect('/meetings');
+	}
 	
 	// Fetch meeting from database
 	const supabase = await createClient();

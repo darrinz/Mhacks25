@@ -18,35 +18,36 @@ export default function MeetingSummary({ meetingId }: MeetingSummaryProps) {
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
+		let mounted = true;
+
 		async function fetchMarkdown() {
 			try {
 				setLoading(true);
-				const supabase = createClient();
-				
-				const { data, error } = await supabase
-					.from("meetings")
-					.select("markdown")
-					.eq("id", meetingId)
-					.single();
-
-				if (error) {
-					setError("Failed to load meeting summary");
-					console.error("Error fetching markdown:", error);
+				const res = await fetch(`/api/meeting/summary?meetingId=${encodeURIComponent(meetingId)}`);
+				if (!res.ok) {
+					const body = await res.json().catch(() => ({}));
+					setError(body?.error || "Failed to load meeting summary");
 					return;
 				}
-
-				setMarkdown(data?.markdown || "No summary available for this meeting.");
+				const body = await res.json();
+				if (!mounted) return;
+				setMarkdown(body.markdown || "No summary available for this meeting.");
 			} catch (err) {
+				if (!mounted) return;
 				setError("An unexpected error occurred");
 				console.error("Unexpected error:", err);
 			} finally {
-				setLoading(false);
+				if (mounted) setLoading(false);
 			}
 		}
 
 		if (meetingId) {
 			fetchMarkdown();
 		}
+
+		return () => {
+			mounted = false;
+		};
 	}, [meetingId]);
 
 	return (
