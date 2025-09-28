@@ -13,6 +13,45 @@ import Box from "@mui/material/Box";
 export default function MeetingsPage() {
 	const router = useRouter();
 
+	const meetingsData = [
+		{
+			id: 1,
+			name: "Weekly Sync",
+			datetime: new Date().toISOString(),
+			description: "Team sync to review progress and blockers.",
+			hasPendingTasks: false,
+			isEdit: false,
+			isReady: false
+		},
+		{
+			id: 2,
+			name: "Design Review",
+			datetime: new Date().toISOString(),
+			description: "Review new designs for the onboarding flow.",
+			hasPendingTasks: true,
+			isEdit: false,
+			isReady: false
+		},
+		{
+			id: 3,
+			name: "Project Kickoff",
+			datetime: new Date().toISOString(),
+			description: "Introduce the new project and align on milestones.",
+			hasPendingTasks: false,
+			isEdit: true,
+			isReady: false
+		},
+		{
+			id: 4,
+			name: "One-on-one",
+			datetime: new Date().toISOString(),
+			description: "Quarterly check-in",
+			hasPendingTasks: false,
+			isEdit: false,
+			isReady: true
+		}
+	];
+
 	const signOut = () => {
 		localStorage.removeItem("signedIn");
 		localStorage.removeItem("userName");
@@ -30,18 +69,20 @@ export default function MeetingsPage() {
 
 			<Box sx={{ width: '100%', py: 2 }}>
 				<Stack direction="column" spacing={2}>
-					<Box>
-						<Meeting name="Weekly Sync" datetime={new Date().toISOString()} description="Team sync to review progress and blockers." />
-					</Box>
-					<Box>
-						<Meeting name="Design Review" datetime={new Date().toISOString()} description="Review new designs for the onboarding flow." hasPendingTasks />
-					</Box>
-					<Box>
-						<Meeting name="Project Kickoff" datetime={new Date().toISOString()} description="Introduce the new project and align on milestones." />
-					</Box>
-					<Box>
-						<Meeting name="One-on-one" datetime={new Date().toISOString()} description="Quarterly check-in" />
-					</Box>
+					{meetingsData.map((meeting) => (
+						<Box key={meeting.id}>
+							<Meeting 
+								name={meeting.name}
+								datetime={meeting.datetime}
+								description={meeting.description}
+								hasPendingTasks={meeting.hasPendingTasks}
+								isEdit={meeting.isEdit}
+								isReady={meeting.isReady}
+								onClickCard={() => router.push(`/meetings/${meeting.id}`)}
+								onView={() => router.push(`/meetings/${meeting.id}`)}
+							/>
+						</Box>
+					))}
 				</Stack>
 			</Box>
 		</Container>

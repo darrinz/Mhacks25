@@ -19,16 +19,19 @@ import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 import AssignmentLateRoundedIcon from "@mui/icons-material/AssignmentLateRounded";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import ScheduleRoundedIcon from "@mui/icons-material/ScheduleRounded";
+import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 
 type MeetingProps = {
   name: string;
   datetime: string | Date;         // ISO string or Date
   description?: string;
   hasPendingTasks?: boolean;       // true => show "Pending tasks"
-  isManager?: boolean;             // true => show Edit
+  isEdit?: boolean;                // true => show Edit button
+  isReady?: boolean;               // true => show Ready button
   onView?: () => void;
   onOpenTasks?: () => void;
   onEdit?: () => void;
+  onReady?: () => void;
   onClickCard?: () => void;        // optional click anywhere
 };
 
@@ -37,10 +40,12 @@ export default function Meeting({
   datetime,
   description = "",
   hasPendingTasks = false,
-  isManager = false,
+  isEdit = false,
+  isReady = false,
   onView,
   onOpenTasks,
   onEdit,
+  onReady,
   onClickCard,
 }: MeetingProps) {
   const theme = useTheme();
@@ -61,30 +66,6 @@ export default function Meeting({
     }).format(dateObj);
   }, [dateObj]);
 
-  const PrimaryButton = hasPendingTasks ? (
-    <Button
-      variant="contained"
-      color="warning"
-      startIcon={<AssignmentLateRoundedIcon />}
-      onClick={(e) => {
-        e.stopPropagation();
-        onOpenTasks?.();
-      }}
-    >
-      Pending tasks
-    </Button>
-  ) : (
-    <Button
-      variant="outlined"
-      startIcon={<VisibilityRoundedIcon />}
-      onClick={(e) => {
-        e.stopPropagation();
-        onView?.();
-      }}
-    >
-      View
-    </Button>
-  );
 
   return (
     <Card
@@ -96,7 +77,7 @@ export default function Meeting({
         '&:hover': { boxShadow: 6, transform: 'translateY(-2px)' },
       }}
     >
-      <CardActionArea onClick={onClickCard} sx={{ p: 0 }}>
+      <CardActionArea onClick={onClickCard} sx={{ px: 4, py: 0 }}>
         <CardContent>
           <Stack direction="row" alignItems="center" spacing={2}>
             <Box sx={{ flex: 1, minWidth: 0 }}>
@@ -113,7 +94,7 @@ export default function Meeting({
                 {hasPendingTasks && (
                   <Chip
                     size="small"
-                    color="warning"
+                    color="error"
                     label="Needs input"
                     sx={{ height: 22 }}
                   />
@@ -153,47 +134,50 @@ export default function Meeting({
               spacing={1}
               sx={{ pl: 1, ml: 'auto', minWidth: 0 }}
             >
-              {/* Primary action (small) */}
-                {hasPendingTasks ? (
-                  <Button
-                    size="small"
-                    variant="contained"
-                    color="warning"
-                    startIcon={<AssignmentLateRoundedIcon />}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onOpenTasks?.();
-                    }}
-                  >
-                    Pending tasks
-                  </Button>
-                ) : (
-                  <Button
-                    size="small"
-                    variant="outlined"
-                    startIcon={<VisibilityRoundedIcon />}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onView?.();
-                    }}
-                  >
-                    View
-                  </Button>
-                )}
+              {/* Action buttons */}
+              {hasPendingTasks && (
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="error"
+                  startIcon={<AssignmentLateRoundedIcon />}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onOpenTasks?.();
+                  }}
+                >
+                  Pending tasks
+                </Button>
+              )}
 
-              {isManager && (
-                <Tooltip title="Edit meeting">
-                  <IconButton
-                    size="small"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onEdit?.();
-                    }}
-                    aria-label="Edit meeting"
-                  >
-                    <EditRoundedIcon />
-                  </IconButton>
-                </Tooltip>
+              {isEdit && (
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="warning"
+                  startIcon={<EditRoundedIcon />}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onEdit?.();
+                  }}
+                >
+                  Edit
+                </Button>
+              )}
+
+              {isReady && (
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="success"
+                  startIcon={<CheckCircleRoundedIcon />}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onReady?.();
+                  }}
+                >
+                  Ready to view summary
+                </Button>
               )}
             </Stack>
           </Stack>
