@@ -3,7 +3,9 @@ from pydantic import BaseModel
 from dotenv import load_dotenv
 from prompts_config import PROMPTS
 import json
+import time
 from uagents import Agent, Context, Model
+from mailer import send_email_with_agentmail
 
 load_dotenv()
 client = genai.Client()
@@ -22,7 +24,7 @@ class FilteredMeetingTopicsByPriority(Model):
     priority: str
     reasoning: str
     summary_of_points: str
-    submitted_by: list[str] # list of users
+    submitted_by: list[str] # list of email addresses
     email_content: list[str] = []
 
 class HealthResponse(Model):
