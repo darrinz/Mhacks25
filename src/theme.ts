@@ -1,86 +1,84 @@
 import { createTheme } from "@mui/material/styles";
 
-// Refined vibrant theme: less gradient, confident colors, subtle depth
+// Light beige + green theme
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#5B32B7", // deep purple with warmth
-      light: "#7C57E6",
-      dark: "#3E1E8A",
+      main: "#2E7D32", // medium green (MUI green[700])
+      light: "#60A961",
+      dark: "#005005",
       contrastText: "#ffffff",
     },
     secondary: {
-      main: "#FF4C6D", // punchy coral
-      light: "#FF7A95",
-      dark: "#CC3A58",
+      main: "#8D6E63", // warm brown-ish accent for contrast
+      light: "#B48A7B",
+      dark: "#5C443D",
       contrastText: "#fff",
     },
-    info: {
-      main: "#2CD4DA", // cool cyan accent (subtle)
-      contrastText: "#06202a",
-    },
+    info: { main: "#1976D2" },
     background: {
-      default: "#0F1724", // near-black navy for modern contrast
-      paper: "#0B1220",
+      default: "#F6F1EA", // soft light beige
+      paper: "#FFFFFF",
     },
     text: {
-      primary: "#E6EEF8",
-      secondary: "#A9BDCF",
+      primary: "#16321F", // dark greenish for comfortable contrast
+      secondary: "#53665B",
     },
-    success: { main: "#10B981" },
+    success: { main: "#43A047" },
     warning: { main: "#F59E0B" },
-    error: { main: "#EF4444" },
+    error: { main: "#E53935" },
   },
   typography: {
     fontFamily: ['Inter', 'Poppins', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial'].join(','),
-    h1: { fontSize: '2.75rem', fontWeight: 800, letterSpacing: '-0.02em' },
-    h2: { fontSize: '1.75rem', fontWeight: 700 },
+    h1: { fontSize: '2.25rem', fontWeight: 700 },
+    h2: { fontSize: '1.5rem', fontWeight: 700 },
     h3: { fontSize: '1.125rem', fontWeight: 700 },
-    body1: { fontSize: '1rem', color: '#E6EEF8' },
+    body1: { fontSize: '1rem', color: '#16321F' },
     button: { textTransform: 'none', fontWeight: 700 },
   },
-  shape: { borderRadius: 12 },
+  shape: { borderRadius: 10 },
   spacing: 8,
   components: {
     MuiButton: {
       defaultProps: { disableElevation: true },
       styleOverrides: {
         root: {
-          borderRadius: 10,
-          padding: '9px 16px',
+          borderRadius: 8,
+          padding: '8px 14px',
         },
         containedPrimary: {
-          background: 'linear-gradient(90deg, #5B32B7 0%, #7C57E6 100%)',
+          background: 'linear-gradient(90deg, #2E7D32 0%, #60A961 100%)',
           color: '#fff',
-          boxShadow: '0 6px 20px rgba(91,50,183,0.18)'
+          boxShadow: '0 6px 18px rgba(46,125,50,0.12)'
         },
         outlined: {
-          border: '1px solid rgba(255,255,255,0.06)'
+          border: '1px solid rgba(22,50,31,0.08)',
+          background: 'transparent'
         }
       }
     },
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 12,
-          background: '#07101a',
-          border: '1px solid rgba(255,255,255,0.03)',
-          boxShadow: '0 8px 24px rgba(2,6,23,0.45)'
+          borderRadius: 10,
+          background: '#FFFFFF',
+          border: '1px solid rgba(22,50,31,0.04)',
+          boxShadow: '0 6px 18px rgba(16,50,31,0.06)'
         }
       }
     },
     MuiTextField: {
-      defaultProps: { variant: 'filled' },
+      defaultProps: { variant: 'outlined' },
       styleOverrides: {
         root: {
-          background: 'rgba(255,255,255,0.02)',
+          background: 'transparent',
           borderRadius: 8,
-          '& .MuiFilledInput-root': {
+          '& .MuiOutlinedInput-root': {
             borderRadius: 8,
-            background: 'rgba(255,255,255,0.02)'
+            background: '#FAF7F3'
           },
           '& label': {
-            color: 'rgba(230,240,255,0.9)'
+            color: 'rgba(22,50,31,0.8)'
           }
         }
       }
