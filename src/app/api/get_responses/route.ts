@@ -6,8 +6,10 @@ const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function GET(req: NextRequest) {
+    // console.log("Hi");
     const { searchParams } = new URL(req.url);
     const title = searchParams.get('title');
+    // console.log(title);
 
     if (!title) {
         return NextResponse.json({ error: 'title is required' }, { status: 400 });
@@ -38,6 +40,6 @@ export async function GET(req: NextRequest) {
 
     // Extract the responses array
     const responsesList = data?.map(row => row.responses) || [];
-
+    console.log(JSON.stringify(responsesList))
     return NextResponse.json(responsesList);
 }

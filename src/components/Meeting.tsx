@@ -34,6 +34,36 @@ type MeetingProps = {
   onClickCard?: () => void;        // optional click anywhere
 };
 
+// Example: Fetch from a database (starter code for two fetch + .then statements)
+function onStartProcessForAgenda(title: string) {
+  // so this should just call a route that retrieves from database and then starts the process
+
+  console.log(title);
+  fetch(`http://localhost:3000/api/get_responses?title=${encodeURIComponent(title)}`)
+    .then((res) => res.json())
+    .then((meetings) => {
+      // Do something with meetings data
+      console.log("Meetings:", meetings);
+      // Example: Fetch details for the first meeting
+      if (meetings.length > 0) {
+        fetch(`/api/meetings/${meetings[0].id}`)
+          .then((res) => res.json())
+          .then((meetingDetails) => {
+            // Do something with meeting details
+            console.log("Meeting details:", meetingDetails);
+          })
+          .catch((err) => {
+            // Handle error for details fetch
+            console.error("Error fetching meeting details:", err);
+          });
+      }
+    })
+    .catch((err) => {
+      // Handle error for meetings fetch
+      console.error("Error fetching meetings:", err);
+    });
+}
+
 export default function Meeting({
   title,
   datetime,
@@ -63,7 +93,6 @@ export default function Meeting({
       minute: "2-digit",
     }).format(dateObj);
   }, [dateObj]);
-
 
   return (
     <Card
@@ -162,6 +191,21 @@ export default function Meeting({
                   Edit
                 </Button>
               )}
+
+                {isOwner && (
+                <Button
+                  variant="contained"
+                  size="small"
+                  color="success"
+                  startIcon={<EditRoundedIcon />}
+                  onClick={(e) => {
+                  e.stopPropagation();
+                  onStartProcessForAgenda(title);
+                  }}
+                >
+                  Create Agenda
+                </Button>
+                )}
 
               {isReady && (
                 <Button

@@ -41,8 +41,7 @@ filterizer_agent = Agent(
     name="filterizer_agent",
     port=8003,
     seed="filterizer_info_secret_seed",
-    endpoint=["http://127.0.0.1:8003/api/filter/",
-    mailbox=True]
+    endpoint=["http://127.0.0.1:8003/api/filter/"]
 )
 
 async def startup_event(ctx: Context):

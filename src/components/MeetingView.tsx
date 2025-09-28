@@ -104,30 +104,7 @@ export default function MeetingView({ meeting, meetingId }: MeetingViewProps) {
 			const result = await response.json();
 			console.log("Standardizer response:", result);
 			
-			// Post the response to the poststandard endpoint
-			const postStandardPayload = {
-				user: user.email,
-				meeting: parseInt(meetingId),
-				responses: questionsAndAnswers
-			};
-
-			const postStandardResponse = await fetch("/api/poststandard", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(postStandardPayload),
-			});
-
-			if (!postStandardResponse.ok) {
-				throw new Error(`Failed to save responses: ${postStandardResponse.status}`);
-			}
-
-			const saveResult = await postStandardResponse.json();
-			console.log("Responses saved:", saveResult);
-			
-			// Show success message or redirect
-			router.push('/meetings');
+			// TODO: Handle successful response (e.g., show success message, redirect)
 			
 		} catch (error) {
 			console.error("Error submitting responses:", error);
