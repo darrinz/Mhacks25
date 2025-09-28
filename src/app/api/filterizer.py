@@ -56,6 +56,7 @@ async def health_check(ctx: Context) -> HealthResponse:
 @filterizer_agent.on_rest_post("/api/filter/", FormSubmissionFilteredRequest, FilteredMeetingTopicsResponse)
 async def standardize_user_response(ctx: Context, req: FormSubmissionFilteredRequest) -> FilteredMeetingTopicsResponse:
     try:
+        print(req.submissions)
         for r in req.submissions:
             user = r.user
             meeting = r.meeting
