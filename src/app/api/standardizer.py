@@ -13,12 +13,12 @@ class QuestionsAndAnswers(BaseModel):
     response: str
 
 class FormSubmissionInput(BaseModel):
-    user: str
+    user: str  # This will now be the email address
     meeting: str
     questions: list[QuestionsAndAnswers]  
 
 class FilteredQuestionsAndAnswersOutput(BaseModel):
-    user: str
+    user: str  # This will now be the email address
     meeting: str
     questions: list[QuestionsAndAnswers]  
 
