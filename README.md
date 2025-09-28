@@ -1,7 +1,7 @@
 # Schemas:
 
 ## Standardizer Input/Output:
-'''
+```
 {
   "user": "John Doe",
   "meeting": "Q4 Planning Session",
@@ -20,10 +20,10 @@
     }
   ]
 }
-'''
+```
 
 ## Filterizer Output:
-'''
+```
 {
   "meeting_topics": [
     {
@@ -40,7 +40,7 @@
     "Technical Note for Engineering: The details regarding the primary key constraint violation are available in ticket #781."
   ]
 }
-'''
+```
 
 
 
