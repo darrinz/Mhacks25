@@ -10,6 +10,7 @@ type DatabaseMeeting = {
 	id: number;
 	date: string;
 	title: string;
+	agenda: any;
 	description: string | null;
 	owner: string | null;
 	pretasks: any;
@@ -35,7 +36,7 @@ export default async function MeetingDetailPage({ params }: { params?: { id?: st
 
 	try {
 		// Fetch from our API endpoint which includes isOwner and isReady
-		const response = await fetch(`${protocol}://${host}/api/meetings`, {
+		const response = await fetch(`/api/meetings`, {
 			headers: {
 				Cookie: headersList.get('cookie') || '',
 			},
@@ -88,5 +89,5 @@ export default async function MeetingDetailPage({ params }: { params?: { id?: st
 	}
 
 	// If not ready, render MeetingView (default) for pending tasks
-	return <MeetingView meeting={meeting} meetingId={meetingId} />;
+	return <MeetingView meetingId={meetingId} />;
 }

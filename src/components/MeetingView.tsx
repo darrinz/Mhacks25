@@ -1,15 +1,20 @@
+// app/components/MeetingView.tsx
 "use client";
 
-import React, { useState } from "react";
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Chip from "@mui/material/Chip";
-import TextField from "@mui/material/TextField";
+import React, { useEffect, useMemo, useState } from "react";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Chip,
+  Container,
+  Stack,
+  TextField,
+  Typography,
+  Skeleton,
+  Alert,
+} from "@mui/material";
 import { useRouter } from "next/navigation";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import ScheduleRoundedIcon from "@mui/icons-material/ScheduleRounded";
@@ -17,203 +22,321 @@ import AssignmentLateRoundedIcon from "@mui/icons-material/AssignmentLateRounded
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import { createBrowserClient } from "@supabase/ssr";
 
-type Question = {
-	id: string;
-	question: string;
-};
-
-type QuestionsAndAnswers = {
-	question: string;
-	response: string;
-};
-
+/** ---- Types ---- */
+type Question = { id: string; question: string };
+type QuestionsAndAnswers = { question: string; response: string };
 type StandardizerPayload = {
-	user: string;
-	meeting: string;
-	questions: QuestionsAndAnswers[];
+  user: string;
+  meeting: string;
+  questions: QuestionsAndAnswers[];
 };
 
-type Meeting = {
-	name: string;
-	datetime: string;
-	description: string;
-	hasPendingTasks: boolean;
-	questions: Question[];
+type MeetingRow = {
+  id: number;
+  title: string;
+  description: string | null;
+  datetime?: string | null; // preferred
+  date?: string | null;     // legacy
+  pretasks?: string[] | null;
 };
 
-type MeetingViewProps = {
-	meeting: Meeting;
-	meetingId: string;
+type Props = {
+  meetingId: string;
 };
 
-export default function MeetingView({ meeting, meetingId }: MeetingViewProps) {
-	const router = useRouter();
-	const [responses, setResponses] = useState<Record<string, any>>({});
-	const [loading, setLoading] = useState(false);
+/** ---- Component ---- */
+export default function MeetingView({ meetingId }: Props) {
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
-	const handleResponseChange = (questionId: string, value: any) => {
-		setResponses(prev => ({
-			...prev,
-			[questionId]: value
-		}));
-	};
+  const [meeting, setMeeting] = useState<{
+    name: string;
+    datetime: string;
+    description: string;
+    questions: Question[];
+  } | null>(null);
 
-	const handleSubmit = async () => {
-		setLoading(true);
-		
-		try {
-			// Get current user email from Supabase
-			const supabase = createBrowserClient(
-				process.env.NEXT_PUBLIC_SUPABASE_URL!,
-				process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-			);
+  const [responses, setResponses] = useState<Record<string, string>>({});
+  const [submitting, setSubmitting] = useState(false);
 
-			const { data: { user }, error } = await supabase.auth.getUser();
-			
-			if (error || !user?.email) {
-				throw new Error("User not authenticated or email not available");
-			}
+  // Fetch meeting from Supabase client-side
+  useEffect(() => {
+    let active = true;
 
-			// Transform responses to match the required schema
-			const questionsAndAnswers: QuestionsAndAnswers[] = meeting.questions.map(question => ({
-				question: question.question,
-				response: responses[question.id] || ""
-			}));
+    async function run() {
+      try {
+        setLoading(true);
+        setLoadError(null);
 
-			// Create standardizer payload
-			const payload: StandardizerPayload = {
-				user: user.email,
-				meeting: meetingId,
-				questions: questionsAndAnswers
-			};
-			console.log(JSON.stringify(payload));
+        const supabase = createBrowserClient(
+          process.env.NEXT_PUBLIC_SUPABASE_URL!,
+          process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+        );
 
-			// Send POST request to standardizer endpoint
-			const response = await fetch("http://127.0.0.1:8002/api/standardize/", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(payload),
-			});
+        // Adjust table/columns as per your schema
+        const { data, error } = await supabase
+          .from("meetings")
+          .select("id,title,description,datetime,date,pretasks")
+          .eq("id", meetingId)
+          .maybeSingle<MeetingRow>();
 
-			if (!response.ok) {
-				throw new Error(`HTTP error! status: ${response.status}`);
-			}
+		  console.log(data)
 
-			const result = await response.json();
-			console.log("Standardizer response:", result);
-			
-			// TODO: Handle successful response (e.g., show success message, redirect)
-			
-		} catch (error) {
-			console.error("Error submitting responses:", error);
-			// TODO: Show error message to user
-		} finally {
-			setLoading(false);
-		}
-	};
+        if (error) throw error;
+        if (!data) throw new Error("Meeting not found");
 
-	const dateObj = new Date(meeting.datetime);
-	const timeStr = new Intl.DateTimeFormat(undefined, {
-		weekday: "long",
-		year: "numeric",
-		month: "long",
-		day: "numeric",
-		hour: "numeric",
-		minute: "2-digit",
-	}).format(dateObj);
+        const dt = data.datetime || data.date || "";
+        const qs =
+          Array.isArray(data.pretasks) && data.pretasks.length > 0
+            ? data.pretasks.map((q, i) => ({ id: `task_${i}`, question: q }))
+            : [];
 
-	return (
-		<Container maxWidth="lg" sx={{ py: 3 }}>
-			<Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
-				<Button
-					startIcon={<ArrowBackRoundedIcon />}
-					onClick={() => router.push('/meetings')}
-					variant="outlined"
-					size="small"
-				>
-					Back
-				</Button>
-				<Typography variant="h4" sx={{ flex: 1 }}>
-					{meeting.name}
-				</Typography>
-				<Button
-					startIcon={<EditRoundedIcon />}
-					variant="contained"
-					size="small"
-				>
-					Edit
-				</Button>
-			</Stack>
+        const mapped = {
+          name: data.title,
+          datetime: dt,
+          description: data.description ?? "",
+          questions: qs,
+        };
 
-			<Card sx={{ mb: 3 }}>
-				<CardContent>
-					<Stack spacing={3}>
-						<Box>
-							<Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
-								<ScheduleRoundedIcon color="action" />
-								<Typography variant="h6" color="text.secondary">
-									{timeStr}
-								</Typography>
-							</Stack>
-							{meeting.hasPendingTasks && (
-								<Chip
-									color="warning"
-									icon={<AssignmentLateRoundedIcon />}
-									label="Has pending tasks"
-									sx={{ mt: 1 }}
-								/>
-							)}
-						</Box>
+        if (active) {
+          setMeeting(mapped);
+          // Initialize response state so all questions exist
+          setResponses(
+            Object.fromEntries(mapped.questions.map((q) => [q.id, ""]))
+          );
+        }
+      } catch (e: any) {
+        console.error(e);
+        if (active) setLoadError(e?.message || "Failed to load meeting");
+      } finally {
+        if (active) setLoading(false);
+      }
+    }
 
-						<Box>
-							<Typography variant="h6" sx={{ mb: 1 }}>
-								Description
-							</Typography>
-							<Typography variant="body1" color="text.secondary">
-								{meeting.description}
-							</Typography>
-						</Box>
+    run();
+    return () => {
+      active = false;
+    };
+  }, [meetingId]);
 
-						<Box>
-							<Typography variant="h6" sx={{ mb: 2 }}>
-								Questions
-							</Typography>
-							<Stack spacing={3}>
-								{meeting.questions.map((question) => (
-									<Card key={question.id} variant="outlined">
-										<CardContent>
-											<Typography variant="h6" sx={{ mb: 2 }}>
-												{question.question}
-											</Typography>
-											<TextField
-												multiline
-												rows={4}
-												fullWidth
-												value={responses[question.id] || ""}
-												onChange={(e) => handleResponseChange(question.id, e.target.value)}
-												variant="outlined"
-												placeholder="Enter your response..."
-											/>
-										</CardContent>
-									</Card>
-								))}
-							</Stack>
-						</Box>
+  const handleResponseChange = (questionId: string, value: string) => {
+    setResponses((prev) => ({ ...prev, [questionId]: value }));
+  };
 
-						<Button 
-							variant="contained" 
-							size="large" 
-							fullWidth
-							onClick={handleSubmit}
-							disabled={loading}
-						>
-							{loading ? "Submitting..." : "Submit Responses"}
-						</Button>
-					</Stack>
-				</CardContent>
-			</Card>
-		</Container>
-	);
+  const hasPendingTasks = useMemo(
+    () =>
+      !!meeting?.questions?.length &&
+      meeting.questions.some((q) => !(responses[q.id] || "").trim()),
+    [meeting, responses]
+  );
+
+  const timeStr = useMemo(() => {
+    if (!meeting?.datetime) return "";
+    const d = new Date(meeting.datetime);
+    if (isNaN(d.getTime())) return meeting.datetime; // show raw if invalid
+    return new Intl.DateTimeFormat(undefined, {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+    }).format(d);
+  }, [meeting?.datetime]);
+
+  const handleSubmit = async () => {
+    if (!meeting) return;
+    setSubmitting(true);
+    try {
+      // Get user
+      const supabase = createBrowserClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      );
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
+      if (error || !user?.email) {
+        throw new Error("User not authenticated or email missing");
+      }
+
+      const questionsAndAnswers: QuestionsAndAnswers[] = meeting.questions.map(
+        (q) => ({
+          question: q.question,
+          response: responses[q.id] || "",
+        })
+      );
+
+      const payload: StandardizerPayload = {
+        user: user.email,
+        meeting: meetingId,
+        questions: questionsAndAnswers,
+      };
+
+      const resp = await fetch("http://127.0.0.1:8002/api/standardize/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+
+      const result = await resp.json();
+      console.log("Standardizer response:", result);
+
+      // TODO: maybe toast success, then route to summary or back to meeting list
+      // router.push(`/meetings/${meetingId}?type=viewAgenda`);
+    } catch (e) {
+      console.error("Error submitting responses:", e);
+      // TODO: surface an error snackbar/toast
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  /** ---- Rendering ---- */
+  if (loading) {
+    return (
+      <Container maxWidth="lg" sx={{ py: 3 }}>
+        <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
+          <Skeleton variant="rectangular" width={88} height={36} />
+          <Skeleton variant="text" sx={{ flex: 1 }} height={40} />
+          <Skeleton variant="rectangular" width={88} height={36} />
+        </Stack>
+        <Card sx={{ mb: 3 }}>
+          <CardContent>
+            <Stack spacing={2}>
+              <Skeleton variant="text" width={240} />
+              <Skeleton variant="rectangular" height={48} />
+              <Skeleton variant="text" width={"60%"} />
+              <Skeleton variant="rectangular" height={120} />
+            </Stack>
+          </CardContent>
+        </Card>
+      </Container>
+    );
+  }
+
+  if (loadError || !meeting) {
+    return (
+      <Container maxWidth="lg" sx={{ py: 3 }}>
+        <Button
+          startIcon={<ArrowBackRoundedIcon />}
+          onClick={() => router.push("/meetings")}
+          variant="outlined"
+          size="small"
+          sx={{ mb: 2 }}
+        >
+          Back
+        </Button>
+        <Alert severity="error" sx={{ mb: 2 }}>
+          {loadError ?? "Meeting not found."}
+        </Alert>
+      </Container>
+    );
+  }
+
+  return (
+    <Container maxWidth="lg" sx={{ py: 3 }}>
+      <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
+        <Button
+          startIcon={<ArrowBackRoundedIcon />}
+          onClick={() => router.push("/meetings")}
+          variant="outlined"
+          size="small"
+        >
+          Back
+        </Button>
+        <Typography variant="h4" sx={{ flex: 1 }}>
+          {meeting.name}
+        </Typography>
+        <Button startIcon={<EditRoundedIcon />} variant="contained" size="small"
+          onClick={() => router.push(`/meetings/${meetingId}?type=edit`)}>
+          Edit
+        </Button>
+      </Stack>
+
+      <Card sx={{ mb: 3 }}>
+        <CardContent>
+          <Stack spacing={3}>
+            <Box>
+              <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
+                <ScheduleRoundedIcon color="action" />
+                <Typography variant="h6" color="text.secondary">
+                  {timeStr || "—"}
+                </Typography>
+              </Stack>
+              {hasPendingTasks && (
+                <Chip
+                  color="warning"
+                  icon={<AssignmentLateRoundedIcon />}
+                  label="Has pending tasks"
+                  sx={{ mt: 1 }}
+                />
+              )}
+            </Box>
+
+            {!!meeting.description && (
+              <Box>
+                <Typography variant="h6" sx={{ mb: 1 }}>
+                  Description
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  {meeting.description}
+                </Typography>
+              </Box>
+            )}
+
+            <Box>
+              <Typography variant="h6" sx={{ mb: 2 }}>
+                Questions
+              </Typography>
+              <Stack spacing={3}>
+                {meeting.questions.length === 0 ? (
+                  <Typography variant="body2" color="text.secondary">
+                    No pre-tasks for this meeting.
+                  </Typography>
+                ) : (
+                  meeting.questions.map((q) => (
+                    <Card key={q.id} variant="outlined">
+                      <CardContent>
+                        <Typography variant="h6" sx={{ mb: 2 }}>
+                          {q.question}
+                        </Typography>
+                        <TextField
+                          multiline
+                          rows={4}
+                          fullWidth
+                          value={responses[q.id] || ""}
+                          onChange={(e) =>
+                            handleResponseChange(q.id, e.target.value)
+                          }
+                          variant="outlined"
+                          placeholder="Enter your response..."
+                        />
+                      </CardContent>
+                    </Card>
+                  ))
+                )}
+              </Stack>
+            </Box>
+
+            {meeting.questions.length > 0 && (
+              <Button
+                variant="contained"
+                size="large"
+                fullWidth
+                onClick={handleSubmit}
+                disabled={submitting}
+              >
+                {submitting ? "Submitting..." : "Submit Responses"}
+              </Button>
+            )}
+          </Stack>
+        </CardContent>
+      </Card>
+    </Container>
+  );
 }

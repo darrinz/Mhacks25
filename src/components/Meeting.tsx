@@ -20,13 +20,16 @@ import AssignmentLateRoundedIcon from "@mui/icons-material/AssignmentLateRounded
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import ScheduleRoundedIcon from "@mui/icons-material/ScheduleRounded";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
+import { useRouter,redirect } from "next/navigation";
 
 type MeetingProps = {
+    id: string;
   title: string;
   datetime: string | Date;         // ISO string or Date
   description?: string;
   isOwner?: boolean;                // true => show Edit button
   isReady?: boolean;               // true => show Ready button
+  agenda? : any;
   onView?: () => void;
   onOpenTasks?: () => void;
   onEdit?: () => void;
@@ -210,16 +213,13 @@ if (meetings.length > 0) {
 }
 
 export default function Meeting({
+    id,
   title,
   datetime,
   description = "",
   isOwner = false,
   isReady = false,
-  onView,
-  onOpenTasks,
-  onEdit,
-  onReady,
-  onClickCard,
+  agenda,
 }: MeetingProps) {
   const theme = useTheme();
 
@@ -227,6 +227,8 @@ export default function Meeting({
     () => (datetime instanceof Date ? datetime : new Date(datetime)),
     [datetime]
   );
+
+  const router = useRouter();
 
   const timeStr = React.useMemo(() => {
     if (Number.isNaN(dateObj.getTime())) return "Invalid date";
@@ -249,7 +251,7 @@ export default function Meeting({
         '&:hover': { boxShadow: 6, transform: 'translateY(-2px)' },
       }}
     >
-  <CardActionArea component="div" onClick={onClickCard} sx={{ px: 4, py: 0 }}>
+  <CardActionArea component="div" onClick={()=>router.push(`/meetings/${id}?type=view`)} sx={{ px: 4, py: 0 }}>
         <CardContent>
           <Stack direction="row" alignItems="center" spacing={2}>
             <Box sx={{ flex: 1, minWidth: 0 }}>
@@ -315,7 +317,7 @@ export default function Meeting({
                   startIcon={<AssignmentLateRoundedIcon />}
                   onClick={(e) => {
                     e.stopPropagation();
-                    onOpenTasks?.();
+                    router.push(`/meetings/${id}?type=respond`)
                   }}
                 >
                   Pending tasks
@@ -330,7 +332,7 @@ export default function Meeting({
                   startIcon={<EditRoundedIcon />}
                   onClick={(e) => {
                     e.stopPropagation();
-                    onEdit?.();
+                    router.push(`/meetings/${id}?type=edit`)
                   }}
                 >
                   Edit
@@ -345,14 +347,14 @@ export default function Meeting({
                   startIcon={<EditRoundedIcon />}
                   onClick={(e) => {
                   e.stopPropagation();
-                  onStartProcessForAgenda(title);
+                  router.push(`/meetings/${id}?type=makeAgenda`)
                   }}
                 >
                   Create Agenda
                 </Button>
                 )}
 
-              {isReady && (
+              {agenda && (
                 <Button
                   size="small"
                   variant="contained"
@@ -360,7 +362,7 @@ export default function Meeting({
                   startIcon={<CheckCircleRoundedIcon />}
                   onClick={(e) => {
                     e.stopPropagation();
-                    onReady?.();
+                    router.push(`/meetings/${id}?type=viewAgenda`)
                   }}
                 >
                   Ready to view summary

@@ -12,6 +12,7 @@ interface Meeting {
     id: string;
     name: string;
     datetime: string;
+    agenda: any;
     description: string;
     isOwner: boolean;
     isReady: boolean;
@@ -39,6 +40,7 @@ export default function MeetingsPage() {
 					name: m.title ?? "Untitled Meeting",
 					datetime: m.datetime ?? m.date ?? new Date().toISOString(),
 					description: m.description ?? "",
+                    agenda: m.agenda,
 					isOwner: !!m.isOwner,
 					isReady: !!m.isReady,
 				}));
@@ -70,12 +72,14 @@ export default function MeetingsPage() {
 					{meetingsData.map((meeting) => (
 						<Box key={meeting.id}>
 							<Meeting 
+                                id={meeting.id}
 								title={meeting.name}
 								datetime={meeting.datetime}
 								description={meeting.description}
+                                agenda={meeting.agenda}
 								isOwner={meeting.isOwner} // Keep isOwner for Meeting component
 								isReady={meeting.isReady}
-								onClickCard={() => router.push(`/meetings/${meeting.id}`)}
+								onClickCard={() => router.push(`/meetings/${meeting.id}?type=view`)}
 								onView={() => router.push(`/meetings/${meeting.id}`)}
 							/>
 						</Box>

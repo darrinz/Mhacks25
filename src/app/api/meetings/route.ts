@@ -76,9 +76,9 @@ export async function GET() {
 		}
 
 		const invited_meetings = (invitedMeetings || []).map((meeting: any) => ({ ...meeting, isOwner: false }));
-        console.log(invitedMeetings)
+        // console.log(invitedMeetings)
 
-        console.log(email)
+        // console.log(email)
 
 		const { data: ownedMeetings, error: ownedError } = await supabase
 			.from("meetings")
@@ -92,8 +92,8 @@ export async function GET() {
 
 		const owned_meetings = (ownedMeetings || []).map((meeting: any) => ({ ...meeting, isOwner: true }));
 
-        console.log("ownerd meetings:")
-        console.log(owned_meetings)
+        // console.log("ownerd meetings:")
+        // console.log(owned_meetings)
 
 
 
@@ -127,8 +127,8 @@ export async function GET() {
 			return NextResponse.json({ meetings: [] }, { status: 200 });
 		}
 
-        console.log("All metings:")
-        console.log(meetings)
+        // console.log("All metings:")
+        // console.log(meetings)
 
         
 
