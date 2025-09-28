@@ -39,12 +39,47 @@ export async function GET(request: Request) {
 			.gt('date', now)
 			.order("date", { ascending: true });
 
-		if (error) {
-			console.warn("invited meetings query failed:", error.message);
-			invitedMeetings = invitedMeetings || [];
+		// Helper to normalize attendee entries into an array of emails (strings)
+		function extractEmails(attArr: any): string[] {
+			if (!Array.isArray(attArr)) return [];
+			return attArr
+				.map((x: any) => {
+					if (!x && x !== 0) return null;
+					if (typeof x === 'string') return x.trim().toLowerCase();
+					// support stored objects like { email: 'a@b.com', name: 'A' }
+					if (typeof x === 'object' && x !== null) {
+						const candidate = x.email ?? x.email_address ?? x.user_email ?? x.name ?? null;
+						return candidate ? String(candidate).trim().toLowerCase() : null;
+					}
+					return null;
+				})
+				.filter(Boolean) as string[];
+		}
+
+		// If the contains query failed or returned nothing, fall back to a JS filter that
+		// can handle different shapes (strings or objects) inside the attendees JSONB.
+		if (error || !Array.isArray(invitedMeetings) || invitedMeetings.length === 0) {
+			if (error) console.warn('invited meetings .contains query failed, falling back to JS filter:', error.message);
+			// Fetch candidate meetings (by date) and filter locally
+			const { data: candidates, error: candErr } = await supabase
+				.from('meetings')
+				.select('*')
+				.gt('date', now)
+				.order('date', { ascending: true });
+
+			if (candErr) {
+				console.warn('fallback candidate fetch failed:', candErr.message);
+				invitedMeetings = [];
+			} else {
+				invitedMeetings = (candidates || []).filter((m: any) => {
+					const emails = extractEmails(m.attendees);
+					return emails.includes(email);
+				});
+			}
 		}
 
 		const invited_meetings = (invitedMeetings || []).map((meeting: any) => ({ ...meeting, isOwner: false }));
+        console.log(invitedMeetings)
 
         console.log(email)
 
@@ -60,6 +95,11 @@ export async function GET(request: Request) {
 		}
 
 		const owned_meetings = (ownedMeetings || []).map((meeting: any) => ({ ...meeting, isOwner: true }));
+
+        console.log("ownerd meetings:")
+        console.log(owned_meetings)
+
+
 
 		// Merge invited + owned and sort by parsed date safely (fall back to 0 if unparsable)
 		// Merge invited + owned and sort by the `date` timestamp
@@ -85,13 +125,14 @@ export async function GET(request: Request) {
 			};
         }));
 
-        meetings =  meetingsWithResponses;
+        meetings = meetingsWithResponses;
         // All user hosted meetins
 
 		if (!meetings) {
 			return NextResponse.json({ error: "No upcoming meetings" }, { status: 404 });
 		}
 
+        console.log("All metings:")
         console.log(meetings)
 
         
