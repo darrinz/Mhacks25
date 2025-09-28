@@ -48,6 +48,12 @@
   "bullets": [
     "critical disconnect on the October 15th deadline",
     "
+  ]
+  "people": [
+    "Alice Smith",
+    "John Doe",
+  ]
+}
 
 
 ```
