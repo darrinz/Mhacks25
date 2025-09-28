@@ -1,6 +1,7 @@
 # Schemas:
 
 ## Standardizer Input/Output:
+'''
 {
   "user": "John Doe",
   "meeting": "Q4 Planning Session",
@@ -19,16 +20,18 @@
     }
   ]
 }
+'''
 
-## Filterizr Output:
-}
+## Filterizer Output:
+'''
+{
   "meeting_topics": [
     {
-    "topic": "Decision and Alignment on 'Project Chimera' Deadline & Blockers",
-    "priority": "High",
-    "reasoning": "Raised by all participants and involves a direct conflict on timeline feasibility, a critical technical blocker, and a dependent team being blocked.",
-    "summary_of_points": "There is a critical disconnect on the October 15th deadline. Priya is focused on the external commitment, while Ben has identified a fundamental technical blocker in the database migration that makes this date highly improbable. This issue is also blocking the design team from completing the new dashboard. The core discussion must be to resolve this conflict and align on a realistic path forward.",
-        "submitted_by": ["Priya Sharma", "Ben Carter", "Chloe Davis"]
+      "topic": "Decision and Alignment on 'Project Chimera' Deadline & Blockers",
+      "priority": "High",
+      "reasoning": "Raised by all participants and involves a direct conflict on timeline feasibility, a critical technical blocker, and a dependent team being blocked.",
+      "summary_of_points": "There is a critical disconnect on the October 15th deadline. Priya is focused on the external commitment, while Ben has identified a fundamental technical blocker in the database migration that makes this date highly improbable. This issue is also blocking the design team from completing the new dashboard. The core discussion must be to resolve this conflict and align on a realistic path forward.",
+      "submitted_by": ["Priya Sharma", "Ben Carter", "Chloe Davis"]
     }
   ],
   "email_content": [
@@ -37,7 +40,7 @@
     "Technical Note for Engineering: The details regarding the primary key constraint violation are available in ticket #781."
   ]
 }
-
+'''
 
 
 
