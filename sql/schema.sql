@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS meetings (
   title TEXT NOT NULL,
   description TEXT,
   owner TEXT,
+  markdown TEXT,
   pretasks jsonb, --JSON array of questions
   attendees jsonb -- JSON array of attendee names
 );
@@ -18,9 +19,3 @@ CREATE TABLE IF NOT EXISTS user_meeting_responses (
   PRIMARY KEY (meeting_id, email),
   FOREIGN KEY (meeting_id) REFERENCES meetings(id)
 );
-
-CREATE TABLE IF NOT EXISTS markdown (
-PRIMARY KEY meeting_id
-FOREIGN KEY (meeting_id) REFERENCES meetings(id)
-markdown TEXT
-)
