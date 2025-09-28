@@ -36,7 +36,7 @@ const theme = createTheme({
     body1: { fontSize: '1rem', color: '#16321F' },
     button: { textTransform: 'none', fontWeight: 700 },
   },
-  shape: { borderRadius: 10 },
+  shape: { borderRadius: 5 },
   spacing: 8,
   components: {
     MuiButton: {

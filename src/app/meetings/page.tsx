@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useRouter } from "next/navigation";
 import Meeting from "@/components/Meeting";
-// inline responsive wrapping; removed MeetingsGrid
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 
@@ -51,12 +50,6 @@ export default function MeetingsPage() {
 			isReady: true
 		}
 	];
-
-	const signOut = () => {
-		localStorage.removeItem("signedIn");
-		localStorage.removeItem("userName");
-		router.push("/");
-	};
 
 	return (
 		<Container maxWidth="lg" sx={{ py: 3 }}>
