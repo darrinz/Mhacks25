@@ -25,7 +25,6 @@ export default function MeetingsPage() {
 				<Typography variant="h5">Meetings</Typography>
 				<div>
 					<Button variant="contained" onClick={() => router.push('/meetings/create')}>Create</Button>
-					<Button sx={{ ml: 1 }} variant="outlined" onClick={signOut}>Sign out</Button>
 				</div>
 			</Stack>
 

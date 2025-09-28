@@ -35,16 +35,27 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user && !request.nextUrl.pathname.startsWith("/login")) {
-    // no user, potentially respond by redirecting the user to the login page
-    const url = request.nextUrl.clone();
-    url.pathname = "/login";
-    return NextResponse.redirect(url);
-  } else if (user && request.nextUrl.pathname.startsWith("/login")) {
-    // user is logged in, potentially respond by redirecting the user to the home page
-    const url = request.nextUrl.clone();
-    url.pathname = "/";
-    return NextResponse.redirect(url);
+  // Define which paths unauthenticated users are allowed to access.
+  // By default we allow the public home page ("/") and the login page ("/login").
+  const publicPaths = ["/", "/login"];
+
+  const pathname = request.nextUrl.pathname;
+
+  if (!user) {
+    const allowed = publicPaths.some((p) => pathname === p || pathname.startsWith(p + "/"));
+    if (!allowed) {
+      // no user: redirect any attempt to access protected routes back to the public home page
+      const url = request.nextUrl.clone();
+      url.pathname = "/";
+      return NextResponse.redirect(url);
+    }
+  } else {
+    // logged-in users shouldn't stay on the login page; send them to the meetings area
+    if (pathname === "/login" || pathname === "/auth/login") {
+      const url = request.nextUrl.clone();
+      url.pathname = "/meetings";
+      return NextResponse.redirect(url);
+    }
   }
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is. If you're

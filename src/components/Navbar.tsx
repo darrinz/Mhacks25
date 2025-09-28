@@ -17,33 +17,54 @@ import {
 } from "@mui/material";
 
 import { createBrowserClient } from "@supabase/ssr";
-import { NextResponse } from "next/server";
+import signOutUser from "@/utils/supabase/logout";
 
 type User = { name: string; avatarUrl?: string };
 
 type NavbarProps = {
   isAuthenticated?: boolean;
   user?: User;
-  onLogin?: () => void;
-  onLogout?: () => void;
 };
 
 export default function Navbar({
   isAuthenticated,
   user,
-  onLogin,
-  onLogout,
 }: NavbarProps) {
   const theme = useTheme();
 
-  // fallback cookie check (placeholder)
-  const [cookieAuthed, setCookieAuthed] = React.useState(false);
+  // client-side supabase auth check; prefer explicit prop if provided
+  const [authed, setAuthed] = React.useState<boolean>(!!isAuthenticated);
+
   React.useEffect(() => {
-    if (typeof document === "undefined") return;
-    const authed = /(?:^|;\s*)smoothie_auth=1(?:;|$)/.test(document.cookie);
-    setCookieAuthed(authed);
-  }, []);
-  const authed = isAuthenticated ?? cookieAuthed;
+    if (typeof window === "undefined") return;
+    // if parent component passes in isAuthenticated, trust it
+    if (typeof isAuthenticated === "boolean") {
+      setAuthed(isAuthenticated);
+      return;
+    }
+
+    const supabase = createBrowserClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    );
+
+    let mounted = true;
+    (async () => {
+      const { data } = await supabase.auth.getSession();
+      if (!mounted) return;
+      setAuthed(!!data.session?.user);
+    })();
+
+    // listen to changes so Navbar updates live
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setAuthed(!!session?.user);
+    });
+
+    return () => {
+      mounted = false;
+      listener?.subscription.unsubscribe();
+    };
+  }, [isAuthenticated]);
 
   // avatar menu
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -68,7 +89,9 @@ export default function Navbar({
     });
 
     if (data.url) {
-      return NextResponse.redirect(data.url);
+      // client-side redirect to the provider URL
+      window.location.href = data.url;
+      return;
     }
 
     if (error) {
@@ -117,9 +140,6 @@ export default function Navbar({
         <Box sx={{ ml: "auto", display: "flex", alignItems: "center", gap: 1 }}>
           {!authed ? (
             <>
-              <Button variant="text" color="inherit" onClick={onLogin} sx={{ px: 2 }}>
-                Log in
-              </Button>
               <Button
                 variant="contained"
 
@@ -190,12 +210,12 @@ export default function Navbar({
                     {user?.name ?? "User"}
                   </Typography>
                   <Typography variant="caption" color="text.secondary">
-                    Auth cookie: {cookieAuthed ? "present" : "missing"}
+                    {authed ? "Signed in" : "Not signed in"}
                   </Typography>
                 </Box>
                 <Divider />
                 <MenuItem
-                  onClick={onLogout}
+                  onClick={() => signOutUser()}
                   sx={{
                     color: theme.palette.error.main,
                     "&:hover": { bgcolor: theme.palette.error.main + "14" }, // alpha
