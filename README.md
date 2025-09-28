@@ -1,3 +1,53 @@
+# Schemas:
+
+## Standardizer Input/Output:
+{
+  "user": "John Doe",
+  "meeting": "Q4 Planning Session",
+  "questions": [
+    {
+      "question": "What are the main goals for Q4?",
+      "response": "Focus on user experience improvements and performance optimization"
+    },
+    {
+      "question": "What blockers do you anticipate?",
+      "response": "Resource allocation and timeline constraints for the new feature set"
+    },
+    {
+      "question": "How will you measure success?",
+      "response": "User engagement metrics and application performance benchmarks"
+    }
+  ]
+}
+
+## Filterizr Output:
+}
+  "meeting_topics": [
+    {
+    "topic": "Decision and Alignment on 'Project Chimera' Deadline & Blockers",
+    "priority": "High",
+    "reasoning": "Raised by all participants and involves a direct conflict on timeline feasibility, a critical technical blocker, and a dependent team being blocked.",
+    "summary_of_points": "There is a critical disconnect on the October 15th deadline. Priya is focused on the external commitment, while Ben has identified a fundamental technical blocker in the database migration that makes this date highly improbable. This issue is also blocking the design team from completing the new dashboard. The core discussion must be to resolve this conflict and align on a realistic path forward.",
+        "submitted_by": ["Priya Sharma", "Ben Carter", "Chloe Davis"]
+    }
+  ],
+  "email_content": [
+    "Update: The Q3 performance reviews are complete and have been submitted to HR.",
+    "Update: New logo assets for the marketing site are finished and available in the shared drive.",
+    "Technical Note for Engineering: The details regarding the primary key constraint violation are available in ticket #781."
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
