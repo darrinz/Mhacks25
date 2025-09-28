@@ -30,8 +30,7 @@ standardizer_agent = Agent(
     name="standardizer_agent",
     port=8002,
     seed="product_info_secret_seed",
-    endpoint=["http://127.0.0.1:8002/api/standardize/",
-    mailbox=True]
+    endpoint=["http://127.0.0.1:8002/api/standardize/"]
 )
 
 @standardizer_agent.on_event("startup")

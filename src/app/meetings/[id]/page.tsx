@@ -4,6 +4,7 @@ import MeetingForm from "@/components/MeetingForm";
 import MeetingSummary from "@/components/MeetingSummary";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 
 type DatabaseMeeting = {
 	id: number;
@@ -23,57 +24,50 @@ export default async function MeetingDetailPage({ params }: { params?: { id?: st
 		redirect('/meetings');
 	}
 	
-	// Fetch meeting from database
-	const supabase = await createClient();
+	// Fetch meetings from API to get isOwner and isReady properties
+	const headersList = await headers();
+	const host = headersList.get('host') || 'localhost:3000';
+	const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
 	
-	const { data: meetingData, error } = await supabase
-		.from('meetings')
-		.select('*')
-		.eq('id', parseInt(meetingId))
-		.single();
-	
-	if (error || !meetingData) {
-		console.error('Error fetching meeting:', error);
+	let meetingData;
+	let isOwner = false;
+	let isReady = false;
+
+	try {
+		// Fetch from our API endpoint which includes isOwner and isReady
+		const response = await fetch(`${protocol}://${host}/api/meetings`, {
+			headers: {
+				Cookie: headersList.get('cookie') || '',
+			},
+		});
+
+		if (!response.ok) {
+			redirect('/meetings');
+		}
+
+		const { meetings } = await response.json();
+		meetingData = meetings.find((m: any) => m.id === parseInt(meetingId));
+
+		if (!meetingData) {
+			redirect('/meetings');
+		}
+
+		// Now we have the meeting with isOwner and isReady from the API
+		isOwner = meetingData.isOwner;
+		isReady = meetingData.isReady;
+
+	} catch (error) {
+		console.error('Error fetching meeting data:', error);
 		redirect('/meetings');
 	}
-
-	// Meeting state data - this should match the data from meetings/page.tsx
-	const meetingsStateData = [
-		{
-			id: 1,
-			hasPendingTasks: false,
-			isEdit: false,
-			isReady: false
-		},
-		{
-			id: 2,
-			hasPendingTasks: true,
-			isEdit: false,
-			isReady: false
-		},
-		{
-			id: 3,
-			hasPendingTasks: false,
-			isEdit: true,
-			isReady: false
-		},
-		{
-			id: 4,
-			hasPendingTasks: false,
-			isEdit: false,
-			isReady: true
-		}
-	];
-
-	const meetingState = meetingsStateData.find(m => m.id === parseInt(meetingId));
 
 	// Transform database response to Meeting object format
 	const meeting = {
 		name: meetingData.title,
 		// normalize DB `date` (timestamptz) to `datetime` for UI components
-		datetime: meetingData.date,
+		datetime: meetingData.datetime || meetingData.date,
 		description: meetingData.description || "",
-		hasPendingTasks: meetingState?.hasPendingTasks || false,
+		hasPendingTasks: !isReady, // If not ready, they have pending tasks
 		questions: Array.isArray(meetingData.pretasks)
 			? meetingData.pretasks.map((task: string, index: number) => ({
 				id: `task_${index}`,
@@ -82,21 +76,17 @@ export default async function MeetingDetailPage({ params }: { params?: { id?: st
 			: []
 	};
 
-	if (!meetingState) {
-		redirect('/meetings');
-	}
-
-	// Conditional rendering based on state
-	// If isEdit is true, render MeetingForm
-	if (meetingState.isEdit) {
+	// Conditional rendering based on API data
+	// If isOwner is true, render MeetingForm
+	if (isOwner) {
 		return <MeetingForm />;
 	}
 
 	// If isReady is true, render MeetingSummary
-	if (meetingState.isReady) {
+	if (isReady) {
 		return <MeetingSummary meetingId={meetingId} />;
 	}
 
-	// If isPending is true or everything is false, render MeetingView (default)
+	// If not ready, render MeetingView (default) for pending tasks
 	return <MeetingView meeting={meeting} meetingId={meetingId} />;
 }
