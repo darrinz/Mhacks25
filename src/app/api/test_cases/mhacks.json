@@ -1,0 +1,74 @@
+[
+  {
+    "user": "ayushgr@umich.edu",
+    "meeting": "MHacks Project Kickoff & Brainstorm",
+    "questions": [
+      {
+        "question": "What's the most important goal for us to achieve in this initial planning meeting?",
+        "response": "The number one goal should be to lock down the core problem we're solving. We need to leave the meeting with a clear one-sentence 'elevator pitch' for our project before we even think about writing a single line of code."
+      },
+      {
+        "question": "What specific project ideas, technologies, or skills are you most excited to contribute or explore during MHacks?",
+        "response": "I'm really excited about the potential of using some of the new generative AI APIs. I've been playing around with a few and I think we can build a really impactful project around AI-driven content creation or analysis. I can take the lead on the product vision."
+      },
+      {
+        "question": "What's the biggest potential challenge or risk we should prepare for to make sure we have a successful hackathon weekend?",
+        "response": "The biggest risk is definitely scope creep. We need to be ruthless about defining a Minimum Viable Product (MVP) for the weekend. It's easy to dream big, but we have to build something that actually works by Sunday morning."
+      }
+    ]
+  },
+  {
+    "user": "adnanr@umich.edu",
+    "meeting": "MHacks Project Kickoff & Brainstorm",
+    "questions": [
+      {
+        "question": "What's the most important goal for us to achieve in this initial planning meeting?",
+        "response": "For me, the most critical decision is our tech stack. We need to decide on our primary language, database, and where we're going to host everything so I can get the dev environments and repos set up on Friday night."
+      },
+      {
+        "question": "What specific project ideas, technologies, or skills are you most excited to contribute or explore during MHacks?",
+        "response": "I've been wanting a good excuse to use a Backend-as-a-Service platform like Supabase or Firebase to speed things up. I can handle all the backend logic, database schema, and set up the API endpoints for the frontend to consume."
+      },
+      {
+        "question": "What's the biggest potential challenge or risk we should prepare for to make sure we have a successful hackathon weekend?",
+        "response": "Honestly, the biggest technical risk is always unreliable conference WiFi and hitting API rate limits from sponsors. We should have a plan for how to develop offline as much as possible and be careful about how often we're hitting external services."
+      }
+    ]
+  },
+  {
+    "user": "dlliu@umich.edu",
+    "meeting": "MHacks Project Kickoff & Brainstorm",
+    "questions": [
+      {
+        "question": "What's the most important goal for us to achieve in this initial planning meeting?",
+        "response": "We absolutely need to agree on a basic user flow and maybe sketch out a few key wireframes. A polished and intuitive UI is what wins over the judges, and we can't build that if we don't have a plan for it."
+      },
+      {
+        "question": "What specific project ideas, technologies, or skills are you most excited to contribute or explore during MHacks?",
+        "response": "I can take charge of the entire frontend and design. I'm excited to use a modern framework like Svelte or React with TailwindCSS to build something that looks great. I can also create a quick component library in Figma to keep our design consistent."
+      },
+      {
+        "question": "What's the biggest potential challenge or risk we should prepare for to make sure we have a successful hackathon weekend?",
+        "response": "Losing time to design arguments. We can't be stuck debating hex codes and border radiuses at 2 AM on Saturday. We need to agree to make design decisions quickly, trust the design lead, and stick to the plan to avoid getting bogged down."
+      }
+    ]
+  },
+  {
+    "user": "darrinz@umich.edu",
+    "meeting": "MHacks Project Kickoff & Brainstorm",
+    "questions": [
+      {
+        "question": "What's the most important goal for us to achieve in this initial planning meeting?",
+        "response": "My main priority is getting a rough timeline for the entire weekend. We should map out blocks for coding, eating, sleeping, and—most importantly—practicing our final presentation. A good plan will keep us on track."
+      },
+      {
+        "question": "What specific project ideas, technologies, or skills are you most excited to contribute or explore during MHacks?",
+        "response": "I'm flexible on the tech stack, but I'm very good at structuring and building the final pitch deck. I can take the lead on scripting our demo and making sure our presentation is compelling and hits all the judging criteria."
+      },
+      {
+        "question": "What's the biggest potential challenge or risk we should prepare for to make sure we have a successful hackathon weekend?",
+        "response": "Team burnout, without a doubt. We need to be realistic and actually schedule breaks and a few hours of sleep. A tired team on Sunday morning makes simple mistakes and gives a low-energy presentation. Let's make sure we plan our caffeine and snack runs."
+      }
+    ]
+  }
+]

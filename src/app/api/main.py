@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 import time
 
-from filterizer import filter_question_responses_by_priority
+from app.api.filterizer_old import filter_question_responses_by_priority
 from standardizer import standardize_question_responses
 from agendaizer import generate_agenda_markdown
 

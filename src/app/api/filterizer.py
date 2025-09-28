@@ -83,6 +83,32 @@ def filter_question_responses_by_priority(question_answer_responses):
         FilteredMeetingTopicsByPriority(**mt, email_content=email_content)
         for mt in parsed["meeting_topics"]
     ]
+
+    # Send email if there's email content to send
+    if email_content and len(email_content) > 0:
+        # Extract all unique email addresses from the submitted_by fields
+        all_emails = set()
+        for topic in filteredMeetingTopicsByPriority:
+            all_emails.update(topic.submitted_by)
+        
+        # Add your email for testing
+        all_emails.add("ayushgr@umich.edu")  # Replace with your actual email
+        
+        # Convert to list for the email function
+        recipients = list(all_emails)
+        
+        # Get meeting title from the first response (assuming all responses are for the same meeting)
+        meeting_title = question_answer_responses[0].meeting if question_answer_responses else "Meeting"
+        
+        # Send the email
+        print(f"Sending email to {len(recipients)} recipients: {recipients}")
+        email_success = send_email_with_agentmail(recipients, email_content, meeting_title)
+        
+        if email_success:
+            print("✅ Email sent successfully!")
+        else:
+            print("❌ Failed to send email")
+            
     return filteredMeetingTopicsByPriority
 
 if __name__ == "__main__":
